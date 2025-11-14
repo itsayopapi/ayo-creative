@@ -11,7 +11,6 @@ const PORT = process.env.PORT || 3000;
 // Enhanced CORS for production
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
     const allowedOrigins = [
@@ -33,21 +32,72 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Nodemailer configuration
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+// Force HTTPS in production
+app.use((req, res, next) => {
+  if (req.headers['x-forwarded-proto'] !== 'https' && process.env.NODE_ENV === 'production') {
+    return res.redirect(301, `https://${req.headers.host}${req.url}`);
   }
+  next();
 });
 
-// Contact form endpoint (keep your existing code)
+// Debug environment variables
+console.log('Email Configuration Check:');
+console.log('EMAIL_USER exists:', !!process.env.EMAIL_USER);
+console.log('EMAIL_PASS exists:', !!process.env.EMAIL_PASS);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+
+// Enhanced Nodemailer configuration with error handling
+let transporter;
+try {
+  transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    }
+  });
+  
+  // Verify transporter configuration
+  transporter.verify(function (error, success) {
+    if (error) {
+      console.log('❌ Email transporter error:', error);
+    } else {
+      console.log('✅ Email server is ready to send messages');
+    }
+  });
+} catch (error) {
+  console.log('❌ Failed to create email transporter:', error);
+}
+
+// Contact form endpoint with enhanced error handling
 app.post('/send-email', async (req, res) => {
-  // Your existing email sending code here
+  console.log('📧 Contact form submitted:', {
+    name: req.body.name,
+    email: req.body.email,
+    service: req.body.service
+  });
+
   try {
     const { name, email, phone, service, budget, timeline, message } = req.body;
 
+    // Validate required fields
+    if (!name || !email || !service || !message) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please fill in all required fields'
+      });
+    }
+
+    // Check if email transporter is configured
+    if (!transporter) {
+      console.log('❌ Email transporter not configured');
+      return res.status(500).json({
+        success: false,
+        message: 'Email service not configured. Please contact support.'
+      });
+    }
+
+    // Email to you
     const mailOptionsToYou = {
       from: process.env.EMAIL_USER,
       to: 'ayocoding12@gmail.com',
@@ -73,6 +123,7 @@ app.post('/send-email', async (req, res) => {
       `
     };
 
+    // Auto-reply to client
     const mailOptionsToClient = {
       from: process.env.EMAIL_USER,
       to: email,
@@ -99,34 +150,59 @@ app.post('/send-email', async (req, res) => {
       `
     };
 
-    await transporter.sendMail(mailOptionsToYou);
-    await transporter.sendMail(mailOptionsToClient);
+    console.log('📤 Attempting to send emails...');
+    
+    // Send both emails
+    const result1 = await transporter.sendMail(mailOptionsToYou);
+    console.log('✅ Email to you sent:', result1.messageId);
+    
+    const result2 = await transporter.sendMail(mailOptionsToClient);
+    console.log('✅ Auto-reply sent:', result2.messageId);
 
     res.status(200).json({ 
       success: true, 
-      message: 'Email sent successfully!' 
+      message: 'Email sent successfully! We will get back to you within 24 hours.' 
     });
+
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('❌ Email sending failed:', error);
+    
+    let errorMessage = 'Failed to send email. Please try again.';
+    
+    // More specific error messages
+    if (error.code === 'EAUTH') {
+      errorMessage = 'Email authentication failed. Please check email configuration.';
+    } else if (error.code === 'EENVELOPE') {
+      errorMessage = 'Invalid email address. Please check your email and try again.';
+    }
+
     res.status(500).json({ 
       success: false, 
-      message: 'Failed to send email. Please try again.' 
+      message: errorMessage 
     });
   }
 });
 
+// Serve static files
+app.use(express.static('public'));
+
 // Serve the main page
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+  res.status(200).json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    emailConfigured: !!(process.env.EMAIL_USER && process.env.EMAIL_PASS)
+  });
 });
 
 // Start server
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`📧 Email configured: ${!!(process.env.EMAIL_USER && process.env.EMAIL_PASS)}`);
 });
