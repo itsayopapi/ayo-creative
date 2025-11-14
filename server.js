@@ -1,5 +1,5 @@
 const express = require('express');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
@@ -41,35 +41,15 @@ app.use((req, res, next) => {
 });
 
 // Debug environment variables
-console.log('Email Configuration Check:');
-console.log('EMAIL_USER exists:', !!process.env.EMAIL_USER);
-console.log('EMAIL_PASS exists:', !!process.env.EMAIL_PASS);
+console.log('Resend Configuration Check:');
+console.log('RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY);
+console.log('CONTACT_EMAIL exists:', !!process.env.CONTACT_EMAIL);
 console.log('NODE_ENV:', process.env.NODE_ENV);
 
-// Enhanced Nodemailer configuration with error handling
-let transporter;
-try {
-  transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
-  });
-  
-  // Verify transporter configuration
-  transporter.verify(function (error, success) {
-    if (error) {
-      console.log('❌ Email transporter error:', error);
-    } else {
-      console.log('✅ Email server is ready to send messages');
-    }
-  });
-} catch (error) {
-  console.log('❌ Failed to create email transporter:', error);
-}
+// Initialize Resend
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Contact form endpoint with enhanced error handling
+// Contact form endpoint with Resend
 app.post('/send-email', async (req, res) => {
   console.log('📧 Contact form submitted:', {
     name: req.body.name,
@@ -88,19 +68,21 @@ app.post('/send-email', async (req, res) => {
       });
     }
 
-    // Check if email transporter is configured
-    if (!transporter) {
-      console.log('❌ Email transporter not configured');
+    // Check if Resend is configured
+    if (!process.env.RESEND_API_KEY) {
+      console.log('❌ Resend API key not configured');
       return res.status(500).json({
         success: false,
         message: 'Email service not configured. Please contact support.'
       });
     }
 
-    // Email to you
-    const mailOptionsToYou = {
-      from: process.env.EMAIL_USER,
-      to: 'ayocoding12@gmail.com',
+    console.log('📤 Attempting to send emails with Resend...');
+
+    // Email to you (Ayo)
+    const emailToYou = await resend.emails.send({
+      from: 'Ayo Creative Designs <onboarding@resend.dev>',
+      to: process.env.CONTACT_EMAIL || 'ayocoding12@gmail.com',
       subject: `New Project Inquiry from ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -121,11 +103,13 @@ app.post('/send-email', async (req, res) => {
           <p style="color: #666; margin-top: 20px;">Sent from ayocreativedesigns.com contact form</p>
         </div>
       `
-    };
+    });
+
+    console.log('✅ Email to you sent:', emailToYou.data?.id);
 
     // Auto-reply to client
-    const mailOptionsToClient = {
-      from: process.env.EMAIL_USER,
+    const autoReply = await resend.emails.send({
+      from: 'Ayo Creative Designs <onboarding@resend.dev>',
       to: email,
       subject: 'Thank you for contacting Ayo Creative Designs',
       html: `
@@ -141,23 +125,26 @@ app.post('/send-email', async (req, res) => {
             <p><strong>Timeline:</strong> ${timeline}</p>
           </div>
           
+          <p>In the meantime, feel free to explore our portfolio to see more of our work.</p>
+          
           <p>Best regards,<br>
           <strong>Ayomide.Q Hassan</strong><br>
           Founder & Creative Director<br>
           Ayo Creative Designs<br>
           <a href="https://ayocreativedesigns.com" style="color: #FF4D00;">ayocreativedesigns.com</a></p>
+          
+          <div style="border-top: 2px solid #FF4D00; padding-top: 20px; margin-top: 30px;">
+            <p style="font-size: 12px; color: #666;">
+              Ayo Creative Designs<br>
+              Phone: (+27) 78 257 1454<br>
+              Email: ayocoding12@gmail.com
+            </p>
+          </div>
         </div>
       `
-    };
+    });
 
-    console.log('📤 Attempting to send emails...');
-    
-    // Send both emails
-    const result1 = await transporter.sendMail(mailOptionsToYou);
-    console.log('✅ Email to you sent:', result1.messageId);
-    
-    const result2 = await transporter.sendMail(mailOptionsToClient);
-    console.log('✅ Auto-reply sent:', result2.messageId);
+    console.log('✅ Auto-reply sent:', autoReply.data?.id);
 
     res.status(200).json({ 
       success: true, 
@@ -170,10 +157,8 @@ app.post('/send-email', async (req, res) => {
     let errorMessage = 'Failed to send email. Please try again.';
     
     // More specific error messages
-    if (error.code === 'EAUTH') {
-      errorMessage = 'Email authentication failed. Please check email configuration.';
-    } else if (error.code === 'EENVELOPE') {
-      errorMessage = 'Invalid email address. Please check your email and try again.';
+    if (error.message?.includes('API key')) {
+      errorMessage = 'Email service configuration error. Please contact support.';
     }
 
     res.status(500).json({ 
@@ -196,7 +181,8 @@ app.get('/health', (req, res) => {
   res.status(200).json({ 
     status: 'OK', 
     timestamp: new Date().toISOString(),
-    emailConfigured: !!(process.env.EMAIL_USER && process.env.EMAIL_PASS)
+    emailConfigured: !!process.env.RESEND_API_KEY,
+    service: 'Resend'
   });
 });
 
@@ -204,5 +190,5 @@ app.get('/health', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`📧 Email configured: ${!!(process.env.EMAIL_USER && process.env.EMAIL_PASS)}`);
+  console.log(`📧 Resend configured: ${!!process.env.RESEND_API_KEY}`);
 });
