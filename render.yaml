@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: ayo-creative-designs
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: EMAIL_USER
+        value: ayocoding12@gmail.com
+      - key: EMAIL_PASS
+        value: your_app_password_here
