@@ -1,3 +1,12 @@
+// Serve SEO files
+app.get('/robots.txt', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'robots.txt'));
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'));
+});
+
 const express = require('express');
 const { Resend } = require('resend');
 const bodyParser = require('body-parser');
