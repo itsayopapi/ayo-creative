@@ -1,12 +1,3 @@
-// Serve SEO files
-app.get('/robots.txt', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'robots.txt'));
-});
-
-app.get('/sitemap.xml', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'));
-});
-
 const express = require('express');
 const { Resend } = require('resend');
 const bodyParser = require('body-parser');
@@ -57,6 +48,15 @@ console.log('NODE_ENV:', process.env.NODE_ENV);
 
 // Initialize Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Serve SEO files (ADD THIS HERE - AFTER APP INIT BUT BEFORE OTHER ROUTES)
+app.get('/robots.txt', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'robots.txt'));
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'));
+});
 
 // Contact form endpoint with Resend
 app.post('/send-email', async (req, res) => {
@@ -177,14 +177,6 @@ app.post('/send-email', async (req, res) => {
   }
 });
 
-// Serve static files
-app.use(express.static('public'));
-
-// Serve the main page
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ 
@@ -193,6 +185,11 @@ app.get('/health', (req, res) => {
     emailConfigured: !!process.env.RESEND_API_KEY,
     service: 'Resend'
   });
+});
+
+// Serve the main page (THIS SHOULD BE LAST)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Start server

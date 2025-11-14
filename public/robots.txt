@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
 
 Sitemap: https://ayocreativedesigns.com/sitemap.xml
+
+# Crawl-delay: 10
+User-agent: GPTBot
+Disallow: /
