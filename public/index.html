@@ -579,6 +579,21 @@
             background-color: var(--primary);
         }
         
+        #portfolio-modal-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-portfolio-image {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+        
         /* Process Section */
         .process {
             padding: 120px 0;
@@ -1494,95 +1509,110 @@
         </div>
     </section>
 
-    <!-- Enhanced Portfolio Section -->
-    <section class="portfolio" id="portfolio">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Creative Portfolio</h2>
-                <p class="section-subtitle">Explore our recent projects that showcase our expertise in creating exceptional digital experiences.</p>
+   <!-- Enhanced Portfolio Section -->
+<section class="portfolio" id="portfolio">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Our Creative Portfolio</h2>
+            <p class="section-subtitle">Explore our recent projects that showcase our expertise in creating exceptional digital experiences.</p>
+        </div>
+        
+        <div class="portfolio-carousel">
+            <div class="carousel-track">
+
+                <!-- Project 1 -->
+                <div class="portfolio-item" 
+                     data-title="NovaTech Solutions"
+                     data-subtitle="E-Commerce Platform"
+                     data-description="A comprehensive e-commerce platform for a tech retailer featuring advanced product filtering, personalized recommendations, and seamless checkout experience. Increased conversion rates by 45% and reduced cart abandonment by 60%."
+                     data-images='["./img/images/novatech/NovaTech_Advanced_Filtering_UI.png","./img/images/novatech/NovaTech_Personalized_Recommendations.png","./img/images/novatech/NovaTech_Seamless_Checkout.png"]'>
+                    <div class="portfolio-content">
+                        <div class="portfolio-image-container">
+                            <img src="./img/images/novatech/UI.png" alt="NovaTech Solutions" class="portfolio-image">
+                        </div>
+                        <div class="portfolio-details">
+                            <p class="portfolio-category">E-Commerce Platform</p>
+                            <h3 class="portfolio-title">NovaTech Solutions</h3>
+                            <p class="portfolio-description">A comprehensive e-commerce platform for a tech retailer featuring advanced product filtering, personalized recommendations, and seamless checkout experience. Increased conversion rates by 45% and reduced cart abandonment by 60%.</p>
+                            <div class="portfolio-features">
+                                <span class="feature-tag">React</span>
+                                <span class="feature-tag">Node.js</span>
+                                <span class="feature-tag">MongoDB</span>
+                                <span class="feature-tag">Payment Integration</span>
+                            </div>
+                            <a class="portfolio-link" href="#">View Sample<i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="portfolio-item" 
+                     data-title="Bloom & Grow"
+                     data-subtitle="Corporate Website"
+                     data-description="A responsive corporate website for a sustainable agriculture company. Features include an interactive product showcase, company timeline, and integrated blog. The design emphasizes their commitment to environmental sustainability."
+                     data-images='["./img/images/bloom/BloomAndGrow_Interactive_Product_Showcase.png","./img/images/bloom/BloomAndGrow_Company_Timeline.png","./img/images/bloom/BloomAndGrow_Sustainability_Commitment.png"]'>
+                    <div class="portfolio-content">
+                        <div class="portfolio-image-container">
+                            <img src="./img/images/bloom/BloomAndGrow_Multi_Device_Mockup.png" alt="Bloom & Grow" class="portfolio-image">
+                        </div>
+                        <div class="portfolio-details">
+                            <p class="portfolio-category">Corporate Website</p>
+                            <h3 class="portfolio-title">Bloom & Grow</h3>
+                            <p class="portfolio-description">A responsive corporate website for a sustainable agriculture company. Features include an interactive product showcase, company timeline, and integrated blog. The design emphasizes their commitment to environmental sustainability.</p>
+                            <div class="portfolio-features">
+                                <span class="feature-tag">WordPress</span>
+                                <span class="feature-tag">Custom Theme</span>
+                                <span class="feature-tag">SEO Optimized</span>
+                                <span class="feature-tag">Responsive Design</span>
+                            </div>
+                            <a class="portfolio-link" href="#">View Sample <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="portfolio-item" 
+                     data-title="Artisan Coffee Co."
+                     data-subtitle="Brand Identity & Web Design"
+                     data-description="Complete brand identity and website for a specialty coffee roaster. The design reflects their artisanal approach with warm tones, custom illustrations, and an immersive storytelling experience about their sourcing process."
+                     data-images='["./img/images/artisan/ArtisanCoffee_Sourcing_Story.png","./img/images/artisan/ArtisanCoffee_Ecommerce.png","./img/images/artisan/ArtisanCoffee_Brand_Identity.png"]'>
+                    <div class="portfolio-content">
+                        <div class="portfolio-image-container">
+                            <img src="./img/images/artisan/ArtisanCoffee_Multi_Device_Mockup.png" alt="Artisan Coffee Co." class="portfolio-image">
+                        </div>
+                        <div class="portfolio-details">
+                            <p class="portfolio-category">Brand Identity & Web Design</p>
+                            <h3 class="portfolio-title">Artisan Coffee Co.</h3>
+                            <p class="portfolio-description">Complete brand identity and website for a specialty coffee roaster. The design reflects their artisanal approach with warm tones, custom illustrations, and an immersive storytelling experience about their sourcing process.</p>
+                            <div class="portfolio-features">
+                                <span class="feature-tag">Brand Strategy</span>
+                                <span class="feature-tag">UI/UX Design</span>
+                                <span class="feature-tag">Webflow</span>
+                                <span class="feature-tag">E-commerce</span>
+                            </div>
+                            <a class="portfolio-link" href="#">View Sample <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            
-            <div class="portfolio-carousel">
-                <div class="carousel-track">
-                    <!-- Project 1 -->
-                    <div class="portfolio-item">
-                        <div class="portfolio-content">
-                            <div class="portfolio-image-container">
-                                <div class="portfolio-image" style="background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);"></div>
-                            </div>
-                            <div class="portfolio-details">
-                                <p class="portfolio-category">E-Commerce Platform</p>
-                                <h3 class="portfolio-title">NovaTech Solutions</h3>
-                                <p class="portfolio-description">A comprehensive e-commerce platform for a tech retailer featuring advanced product filtering, personalized recommendations, and seamless checkout experience. Increased conversion rates by 45% and reduced cart abandonment by 60%.</p>
-                                <div class="portfolio-features">
-                                    <span class="feature-tag">React</span>
-                                    <span class="feature-tag">Node.js</span>
-                                    <span class="feature-tag">MongoDB</span>
-                                    <span class="feature-tag">Payment Integration</span>
-                                </div>
-                                <a class="portfolio-link" data-project="novatech">View Case Study <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Project 2 -->
-                    <div class="portfolio-item">
-                        <div class="portfolio-content">
-                            <div class="portfolio-image-container">
-                                <div class="portfolio-image" style="background: linear-gradient(135deg, #667eea, #764ba2);"></div>
-                            </div>
-                            <div class="portfolio-details">
-                                <p class="portfolio-category">Corporate Website</p>
-                                <h3 class="portfolio-title">Bloom & Grow</h3>
-                                <p class="portfolio-description">A responsive corporate website for a sustainable agriculture company. Features include an interactive product showcase, company timeline, and integrated blog. The design emphasizes their commitment to environmental sustainability.</p>
-                                <div class="portfolio-features">
-                                    <span class="feature-tag">WordPress</span>
-                                    <span class="feature-tag">Custom Theme</span>
-                                    <span class="feature-tag">SEO Optimized</span>
-                                    <span class="feature-tag">Responsive Design</span>
-                                </div>
-                                <a class="portfolio-link" data-project="bloom">View Case Study <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Project 3 -->
-                    <div class="portfolio-item">
-                        <div class="portfolio-content">
-                            <div class="portfolio-image-container">
-                                <div class="portfolio-image" style="background: linear-gradient(135deg, #f093fb, #f5576c);"></div>
-                            </div>
-                            <div class="portfolio-details">
-                                <p class="portfolio-category">Brand Identity & Web Design</p>
-                                <h3 class="portfolio-title">Artisan Coffee Co.</h3>
-                                <p class="portfolio-description">Complete brand identity and website for a specialty coffee roaster. The design reflects their artisanal approach with warm tones, custom illustrations, and an immersive storytelling experience about their sourcing process.</p>
-                                <div class="portfolio-features">
-                                    <span class="feature-tag">Brand Strategy</span>
-                                    <span class="feature-tag">UI/UX Design</span>
-                                    <span class="feature-tag">Webflow</span>
-                                    <span class="feature-tag">E-commerce</span>
-                                </div>
-                                <a class="portfolio-link" data-project="artisan">View Case Study <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="carousel-nav carousel-prev">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="carousel-nav carousel-next">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-                
-                <div class="carousel-dots">
-                    <button class="carousel-dot active"></button>
-                    <button class="carousel-dot"></button>
-                    <button class="carousel-dot"></button>
-                </div>
+
+            <button class="carousel-nav carousel-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-nav carousel-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <div class="carousel-dots">
+                <button class="carousel-dot active"></button>
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- Process Section -->
     <section class="process" id="process">
@@ -1807,7 +1837,7 @@
                     </select>
                 </div>
                 
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label for="budget" class="form-label">Project Budget *</label>
                     <select id="budget" name="budget" class="form-select" required>
                         <option value="" disabled selected>Select budget range</option>
@@ -1817,9 +1847,9 @@
                         <option value="$10,000 - $25,000">$10,000 - $25,000</option>
                         <option value="$25,000+">$25,000+</option>
                     </select>
-                </div>
+                </div>--->
                 
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label for="timeline" class="form-label">Project Timeline *</label>
                     <select id="timeline" name="timeline" class="form-select" required>
                         <option value="" disabled selected>Select timeline</option>
@@ -1829,7 +1859,7 @@
                         <option value="6+ Months">6+ Months</option>
                         <option value="Flexible">Flexible</option>
                     </select>
-                </div>
+                </div>-->
                 
                 <div class="form-group">
                     <label for="message" class="form-label">Project Details *</label>
@@ -1861,8 +1891,8 @@
                     </div>
                     <p>We are a premium web design agency dedicated to creating exceptional digital experiences that drive growth and success.</p>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/ayo.creative.designs?igsh=eGh5c3RuYXVucWl0&utm_source=qr" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/ayo-hassan-a11734262" class="social-link"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
                 <div class="footer-column">
@@ -1925,19 +1955,19 @@
     </div>
 
     <!-- Portfolio Modal -->
-    <div id="portfolio-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 class="modal-title" id="portfolio-modal-title">Project Title</h2>
-            <p class="modal-subtitle" id="portfolio-modal-subtitle">Project description subtitle</p>
-            <div class="portfolio-modal-images" id="portfolio-modal-images">
-                <!-- Images will be inserted here -->
-            </div>
-            <div class="modal-body" id="portfolio-modal-body">
-                <!-- Content will be inserted here -->
-            </div>
+<div id="portfolio-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 class="modal-title" id="portfolio-modal-title">Project Title</h2>
+        <p class="modal-subtitle" id="portfolio-modal-subtitle">Project description subtitle</p>
+        <div class="portfolio-modal-images" id="portfolio-modal-images">
+            <!-- Images will be inserted here -->
+        </div>
+        <div class="modal-body" id="portfolio-modal-body">
+            <!-- Content will be inserted here -->
         </div>
     </div>
+</div>
 
     <script>
        // Mobile Navigation Toggle
@@ -2537,6 +2567,59 @@ backToTopButton.addEventListener('click', () => {
     });
 });
     </script>
+
+  
+
+<!-- JavaScript -->
+<script>
+  const modal = document.getElementById("portfolio-modal");
+  const modalTitle = document.getElementById("portfolio-modal-title");
+  const modalSubtitle = document.getElementById("portfolio-modal-subtitle");
+  const modalBody = document.getElementById("portfolio-modal-body");
+  const modalImagesContainer = document.getElementById("portfolio-modal-images");
+  const closeModal = document.querySelector(".close-modal");
+
+  // Open modal
+  document.querySelectorAll(".portfolio-link").forEach(link => {
+      link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const item = link.closest(".portfolio-item");
+
+          // Set modal content
+          modalTitle.textContent = item.dataset.title;
+          modalSubtitle.textContent = item.dataset.subtitle;
+          modalBody.innerHTML = `<p>${item.dataset.description}</p>`;
+
+          // Clear previous images
+          modalImagesContainer.innerHTML = "";
+
+          // Add images dynamically
+          const images = JSON.parse(item.dataset.images);
+          images.forEach(src => {
+              const img = document.createElement("img");
+              img.src = src;
+              img.alt = item.dataset.title;
+              img.classList.add("modal-portfolio-image");
+              modalImagesContainer.appendChild(img);
+          });
+
+          // Show modal
+          modal.style.display = "block";
+      });
+  });
+
+  // Close modal
+  closeModal.addEventListener("click", () => {
+      modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (e) => {
+      if (e.target == modal) {
+          modal.style.display = "none";
+      }
+  });
+</script>
+
 
 </body>
 </html>
