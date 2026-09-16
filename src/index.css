@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --radius-DEFAULT: var(--radius);
+}
+
+:root {
+  --background: #080808;
+  --foreground: #f0ebe0;
+  --card: #111111;
+  --card-foreground: #f0ebe0;
+  --primary: #ff6b35;
+  --primary-foreground: #ffffff;
+  --secondary: #1c1c1c;
+  --secondary-foreground: #f0ebe0;
+  --muted: #242424;
+  --muted-foreground: #888880;
+  --accent: #ff6b35;
+  --accent-foreground: #ffffff;
+  --border: rgba(240, 235, 224, 0.08);
+  --ring: #ff6b35;
+  --radius: 10px;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: 'Fraunces', serif;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+  /* Orange theme enhancements */
+  :root {
+    --orange-300: #fb9226;
+    --orange-400: #f97316;
+    --orange-500: #ff6b35;
+    --orange-600: #ea580c;
+    --orange-700: #c2410b;
+    --orange-glow: rgba(255, 107, 53, 0.3);
+    --orange-glow-strong: rgba(255, 107, 53, 0.5);
+  }
+
+  /* Orange radial gradient backgrounds */
+  .orange-radial {
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 107, 53, 0.15) 0%,
+      transparent 70%
+    );
+  }
+
+  .orange-radial-strong {
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 107, 53, 0.25) 0%,
+      transparent 70%
+    );
+  }
+
+  /* Orange glow for buttons and interactive elements */
+  .orange-glow {
+    box-shadow: 0 0 15px 5px var(--orange-glow);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .orange-glow:hover {
+    box-shadow: 0 0 25px 10px var(--orange-glow-strong);
+  }
+
+  /* Orange text glow */
+  .text-glow-orange {
+    text-shadow: 0 0 8px var(--orange-glow-strong);
+  }
+
+  /* Orange gradient line dividers */
+  .orange-divider {
+    background: linear-gradient(90deg, transparent, #ff6b35 50%, transparent);
+  }
+
+  .orange-divider-vertical {
+    background: linear-gradient(180deg, transparent, #ff6b35 50%, transparent);
+  }
+
+  /* Orange tinted glass effect */
+  .orange-glass {
+    background: rgba(255, 107, 53, 0.05);
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Pulsing orange animation for CTAs */
+  @keyframes pulse-orange {
+    0% {
+      box-shadow: 0 0 15px 5px var(--orange-glow);
+    }
+    50% {
+      box-shadow: 0 0 25px 10px var(--orange-glow-strong);
+    }
+    100% {
+      box-shadow: 0 0 15px 5px var(--orange-glow);
+    }
+  }
+
+  .pulse-orange {
+    animation: pulse-orange 2s ease-in-out infinite;
+  }
+
+  /* Mobile menu staggered entrance */
+  @keyframes menu-item-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .menu-item-in {
+    opacity: 0;
+    animation: menu-item-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* Orange gradient button background — rounded Bootstrap-style */
+  .btn-orange {
+    background: linear-gradient(135deg, #ff6b35 0%, #ea580c 100%);
+    border-radius: 0.75rem;
+  }
+
+  .btn-orange:hover {
+    background: linear-gradient(135deg, #ff8a5b 0%, #f97316 100%);
+  }
+
+  /* Rounded Bootstrap-style form controls */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="search"],
+  select,
+  textarea {
+    border-radius: 0.75rem;
+  }
+
+  button {
+    border-radius: 0.75rem;
+  }
+
+  /* Keep chips/tags small-round unless overridden */
+  .no-round {
+    border-radius: 0;
+  }
+
+  /* ---------- UX: page transition ---------- */
+  .page-enter {
+    animation: page-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ---------- UX: scroll reveal ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- UX: desktop active nav underline ---------- */
+  .nav-link {
+    position: relative;
+    padding-bottom: 4px;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    height: 2px;
+    background: #ff6b35;
+    border-radius: 2px;
+    transition: right 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    right: 0;
+  }
+
+  /* ---------- UX: respect reduced motion ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    .page-enter,
+    .menu-item-in {
+      animation: none !important;
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }

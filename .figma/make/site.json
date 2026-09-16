@@ -1,0 +1,10 @@
+{
+  "description": "Transform agency websites into premium, income-generating platforms that enhance brand presence and attract clients effectively.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
