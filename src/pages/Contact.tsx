@@ -23,10 +23,10 @@ type FormData = {
 };
 
 const BUDGET_OPTIONS = [
-  "Under $1,500",
-  "$1,500 – $3,500",
-  "$3,500 – $7,500",
-  "$7,500+",
+  "$100 – $200 USD",
+  "$200 – $300 USD",
+  "$300 – $500 USD",
+  "Above $500 USD (custom scope)",
   "Not sure yet",
 ];
 

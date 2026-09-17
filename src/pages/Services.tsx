@@ -11,7 +11,7 @@ const ENGAGEMENT_MODELS = [
   {
     title: "Fixed-Scope Project",
     desc: "Best for defined launches — a new site, redesign, or e-commerce build. Fixed price, fixed timeline, milestone payments.",
-    meta: "From $1,500",
+    meta: "Website builds from $100 USD",
   },
   {
     title: "Retainer Partnership",
@@ -28,7 +28,7 @@ const ENGAGEMENT_MODELS = [
 export default function Services() {
   useSEO(
     "Services — Web Design, Development, E-Commerce & SEO",
-    "UI/UX design, web development, e-commerce stores, brand strategy, SEO and responsive design. Fixed-scope projects, retainers and sprints from $600.",
+    "UI/UX design, web development, e-commerce stores, brand strategy, SEO and responsive design. Website builds from $100 USD with clearly defined scopes.",
     "/services"
   );
   return (

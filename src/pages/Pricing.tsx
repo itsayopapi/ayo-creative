@@ -5,68 +5,12 @@ import { Link } from "react-router-dom";
 import { ADD_ONS, PRICING_FAQS } from "../data/content";
 import { useCurrency } from "../hooks/useCurrency";
 
-const PRICING = [
-  {
-    tier: "Starter",
-    usd: 1500,
-    suffix: "",
-    period: "one-time",
-    tagline: "Launch fast, look sharp.",
-    features: [
-      "Custom landing page",
-      "Mobile-responsive design",
-      "Contact / lead capture form",
-      "Basic SEO setup",
-      "2 revision rounds",
-      "7-day delivery",
-    ],
-    cta: "Get Started",
-    highlight: false,
-  },
-  {
-    tier: "Growth",
-    usd: 3500,
-    suffix: "",
-    period: "one-time",
-    tagline: "The full brand experience.",
-    features: [
-      "Up to 8-page custom website",
-      "UI/UX strategy session",
-      "Brand identity integration",
-      "Advanced SEO optimization",
-      "CMS integration + Analytics",
-      "Multilingual support",
-      "4 revision rounds",
-      "14-day delivery",
-    ],
-    cta: "Start Your Project",
-    highlight: true,
-  },
-  {
-    tier: "Premium",
-    usd: 7500,
-    suffix: "+",
-    period: "custom scope",
-    tagline: "Enterprise-grade. No compromises.",
-    features: [
-      "Custom e-commerce or web app",
-      "Full brand strategy & identity",
-      "Advanced animations & interactions",
-      "Custom CMS / backend",
-      "Multi-currency & multilingual",
-      "1-month post-launch support",
-      "Unlimited revisions",
-      "Priority delivery",
-    ],
-    cta: "Book a Call",
-    highlight: false,
-  },
-];
+import { WEBSITE_PACKAGES } from "../data/pricing";
 
 export default function PricingPage() {
   useSEO(
     "Pricing — Website Design Packages & Costs",
-    "Transparent website design pricing from $1,500. Starter, Growth and Premium packages with add-ons, care plans and a launch guarantee. Multi-currency accepted.",
+    "Website pricing from $100 USD: landing pages and portfolios $100–$200; company sites, starter stores and scoped backend projects $300–$500. Hosting and domain setup excluded.",
     "/pricing"
   );
   const { info, convert } = useCurrency();
@@ -80,84 +24,56 @@ export default function PricingPage() {
             Investment
             <span className="w-5 h-px bg-[#ff6b35]" />
           </p>
-          <h2
+          <h1
             className="font-display font-black leading-tight mb-4"
             style={{ fontSize: "clamp(36px, 5vw, 60px)" }}
           >
-            Transparent pricing.
+            Your website. Your budget.
             <br />
-            Serious results.
-          </h2>
+            <span className="text-[#ff6b35]">Starting at {convert(100)}.</span>
+          </h1>
           <p className="text-[#888880] max-w-md mx-auto text-sm leading-relaxed">
-            Every package includes our full process — strategy, design, and development. No hidden fees, ever.
-            <span className="text-[#f0ebe0]"> Hosting and domain setup are billed separately</span> so you always own your accounts.
+            Choose the kind of website you need, then agree a fixed scope and price before work begins. The ranges below are for the listed deliverables, not unlimited features.
+            <span className="text-[#f0ebe0]"> Hosting, domains, and their setup are not included.</span>
           </p>
           <p className="text-[#ff6b35] text-xs mt-4 flex items-center justify-center gap-2">
             <span aria-hidden="true">💱</span>
             {info.code === "USD"
-              ? "Prices shown in USD (your local currency)."
-              : `Prices auto-converted to your local currency (${info.code}).`}
+              ? "Base prices in USD. Any local-currency estimates are indicative; your quote confirms the final currency and amount."
+              : `Approximate ${info.code} conversions of USD base prices. Exchange rates can change; your quote confirms the final amount.`}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5">
-          {PRICING.map((p) => (
-            <div
-              key={p.tier}
-              className={`relative flex flex-col p-10 ${p.highlight ? "bg-[#ff6b35]" : "bg-[#0d0d0d]"}`}
-            >
-              {p.highlight && (
-                <div className="absolute top-4 right-4 bg-[#080808] text-[#ff6b35] text-[9px] font-bold px-2 py-1 tracking-widest uppercase">
-                  Most Popular
-                </div>
-              )}
-              <div
-                className={`text-xs font-semibold tracking-[0.2em] uppercase mb-2 ${p.highlight ? "text-[#080808]/60" : "text-[#888880]"}`}
-              >
-                {p.tier}
-              </div>
-              <div
-                className={`font-display text-5xl font-black mb-1 ${p.highlight ? "text-[#080808]" : "text-[#f0ebe0]"}`}
-              >
-                {convert(p.usd)}
-                {p.suffix}
-              </div>
-              <div
-                className={`text-xs mb-4 ${p.highlight ? "text-[#080808]/60" : "text-[#888880]"}`}
-              >
-                {p.period}
-              </div>
-              <p
-                className={`text-sm mb-8 leading-relaxed ${p.highlight ? "text-[#080808]/80" : "text-[#888880]"}`}
-              >
-                {p.tagline}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          {WEBSITE_PACKAGES.map((p) => (
+            <article key={p.name} className="min-w-0 flex flex-col p-6 sm:p-8 rounded-2xl border border-white/10 bg-[#0d0d0d] hover:border-[#ff6b35]/50 transition-colors">
+              <h2 className="font-display text-xl font-bold mb-4">{p.name}</h2>
+              <p className="font-display text-3xl font-black text-[#ff6b35] flex flex-wrap items-baseline gap-x-2 break-all">
+                <span>{convert(p.min)}</span><span aria-hidden="true">–</span><span className="sr-only">to</span><span>{convert(p.max)}</span>
               </p>
-              <ul className="flex flex-col gap-3 flex-1 mb-10">
-                {p.features.map((f) => (
-                  <li
-                    key={f}
-                    className={`flex items-start gap-3 text-sm ${p.highlight ? "text-[#080808]" : "text-[#f0ebe0]/80"}`}
-                  >
-                    <span
-                      className={`mt-0.5 flex-shrink-0 ${p.highlight ? "text-[#080808]" : "text-[#ff6b35]"}`}
-                    >
-                      ✓
-                    </span>
-                    {f}
+              <p className="text-xs text-[#aaa] mt-2 mb-5">{info.code} · one-time build · scoped range</p>
+              <p className="text-sm text-[#aaa] leading-relaxed mb-5">{p.description}</p>
+              <div className="rounded-xl bg-white/5 p-4 text-sm leading-relaxed mb-5">
+                <p className="text-[#f0ebe0]">{p.entry}</p>
+                <p className="text-[#aaa] mt-3">{p.upgrade}</p>
+              </div>
+              <ul className="flex flex-col gap-3 flex-1 mb-7">
+                {p.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-3 text-sm text-[#f0ebe0]/80">
+                    <span aria-hidden="true" className="text-[#ff6b35]">✓</span>{feature}
                   </li>
                 ))}
               </ul>
-              <Link
-                to="/contact"
-                className={`text-center text-sm font-semibold py-3.5 px-6 rounded-lg transition-colors duration-200 ${
-                  p.highlight
-                    ? "bg-[#080808] text-[#ff6b35] hover:bg-[#111] text-glow-orange"
-                    : "btn-orange text-[#ffffff] hover:bg-[#ff8a5b] orange-glow"
-                }`}
-              >
-                {p.cta}
+              <Link to="/contact" className="btn-orange text-white text-center text-sm font-semibold py-3.5 px-4 rounded-xl min-h-12" aria-label={`Request a quote for ${p.name}`}>
+                Discuss this project →
               </Link>
-            </div>
+            </article>
           ))}
+          <article className="min-w-0 rounded-2xl border border-[#ff6b35]/30 bg-[#ff6b35]/5 p-6 sm:p-8 flex flex-col justify-center">
+            <p className="text-[#ff6b35] text-xs uppercase tracking-widest mb-4">Beyond the essentials</p>
+            <h2 className="font-display text-2xl font-bold mb-4">Bigger idea? Let's scope it.</h2>
+            <p className="text-sm text-[#aaa] leading-relaxed mb-6">Large catalogues, custom checkout, booking systems, complex permissions, and full SaaS products need a separate quote. The {convert(500)} upper range is not a cap on every project.</p>
+            <Link to="/contact" className="border border-[#ff6b35]/50 rounded-xl text-center text-[#ff6b35] py-3.5 px-4 text-sm font-semibold hover:bg-[#ff6b35]/10">Get a custom quote →</Link>
+          </article>
         </div>
         <p className="text-center text-[#888880] text-xs mt-8">
           Need something custom?{" "}
@@ -188,12 +104,12 @@ export default function PricingPage() {
               </div>
               <ul className="flex flex-col gap-2.5">
                 {[
-                  "Strategy, UI/UX design & development",
-                  "All revision rounds in your package",
-                  "SEO setup & analytics integration",
-                  "Source code & design file ownership",
-                  "Post-launch support window",
-                  "Launch QA across devices & browsers",
+                  "Written scope and agreed deliverables",
+                  "Mobile-responsive layouts for website builds",
+                  "Basic page titles and descriptions for website builds",
+                  "Ownership of your custom code; platform licences remain separate",
+                  "Revision rounds and support window specified in your quote",
+                  "Testing of the agreed pages and features",
                 ].map((f) => (
                   <li key={f} className="flex items-start gap-2.5 text-sm text-[#f0ebe0]/85">
                     <span className="text-[#ff6b35] mt-0.5 flex-shrink-0">→</span>
@@ -205,14 +121,14 @@ export default function PricingPage() {
             <div className="bg-[#111] border border-white/5 rounded-lg p-6 sm:p-8">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-9 h-9 bg-white/5 border border-white/15 rounded-full flex items-center justify-center text-[#888880] flex-shrink-0">—</div>
-                <h3 className="font-display text-lg font-bold">Billed separately (at cost)</h3>
+                <h3 className="font-display text-lg font-bold">Not included in the build price</h3>
               </div>
               <ul className="flex flex-col gap-2.5 mb-5">
                 {[
-                  "Domain name — ~$10–20/yr, paid directly to your registrar",
-                  "Hosting — ~$5–25/mo, on your own account (Vercel, Netlify, etc.)",
-                  "Premium plugins, stock assets or paid APIs your project needs",
-                  "Ongoing care plans after the support window (optional, from $99/mo)",
+                  "Domain registration and hosting subscriptions — paid directly to your providers",
+                  "Domain / hosting setup assistance — quoted separately",
+                  "Paid themes, plugins, stock assets, APIs, and payment processing fees",
+                  "Optional care plans after the agreed support window — from $99 USD/mo",
                 ].map((f) => (
                   <li key={f} className="flex items-start gap-2.5 text-sm text-[#888880]">
                     <span className="text-[#555] mt-0.5 flex-shrink-0">→</span>
@@ -222,8 +138,7 @@ export default function PricingPage() {
               </ul>
               <p className="text-xs text-[#888880] leading-relaxed bg-[#0d0d0d] border border-white/5 rounded-lg p-4">
                 Why separate? Because hosting and domains registered in <span className="text-[#f0ebe0]">your name</span> mean
-                no lock-in, no ransom pricing, and full control. We set everything up with you on the call — you just
-                approve the account.
+                no lock-in and full control. Any setup help and third-party costs are agreed separately before you commit.
               </p>
             </div>
           </div>
@@ -236,11 +151,11 @@ export default function PricingPage() {
           </div>
           <div>
             <h3 className="font-display text-xl sm:text-2xl font-bold mb-2">
-              The Ayo Creative <span className="text-[#ff6b35] text-glow-orange">Launch Guarantee</span>
+              A clear scope. <span className="text-[#ff6b35]">A price agreed upfront.</span>
             </h3>
             <p className="text-[#888880] text-sm leading-relaxed max-w-2xl">
-              If your finished site doesn't match the approved designs, we keep iterating until it does — free.
-              And if we miss an agreed launch date for reasons within our control, you get 10% back. Simple.
+              Your proposal lists deliverables, revisions, content requirements, timeline, and payment milestones.
+              If you request additional work, you receive a separate price to approve first — no surprise extras.
             </p>
           </div>
         </div>

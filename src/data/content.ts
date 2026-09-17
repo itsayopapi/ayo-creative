@@ -131,20 +131,24 @@ export const PROCESS_STEPS = [
 
 export const PRICING_FAQS = [
   {
+    q: "Why does each website type have a price range?",
+    a: "Landing pages and portfolios range from $100–$200 USD; scoped company websites, starter stores, and small backend projects range from $300–$500 USD. Page count, content volume, and the listed features determine the final fixed quote. Bigger custom projects can exceed $500.",
+  },
+  {
     q: "What payment methods do you accept?",
     a: "We accept all major cards, bank transfers, and Stripe invoices in USD, EUR, GBP, and NGN. Projects are typically split 50% upfront and 50% at launch.",
   },
   {
     q: "Are hosting and domain included in the price?",
-    a: "No — and that's intentional. We register your domain and set up hosting in your name, on your account, so you own everything outright. You pay the provider directly (typically ~$10–20/yr for a domain and ~$5–25/mo for hosting) with zero markup from us.",
+    a: "Hosting, domain registration, and their setup are excluded from website build prices. Provider subscriptions are paid directly on accounts you own. Any setup assistance is quoted separately and approved before work begins.",
   },
   {
     q: "Can I pay in installments?",
-    a: "Yes. Milestone-based payments are standard for Growth and Premium projects — you pay as we deliver, never all upfront.",
+    a: "The proposed split is 50% upfront and 50% on completion of the agreed scope. Any alternative milestones and the payment currency are confirmed in your written quote before you commit.",
   },
   {
     q: "What if I need changes after launch?",
-    a: "Every project includes a post-launch support window (7 days for Starter, 30 days for Premium). After that, care plans start at $99/month.",
+    a: "Your quote specifies the post-launch bug-fix support window. New pages, features, or ongoing content updates are separate work, priced and approved first. Optional care plans start at $99 USD per month.",
   },
   {
     q: "Do you handle copywriting and images?",
@@ -156,7 +160,7 @@ export const PRICING_FAQS = [
   },
   {
     q: "How fast can you start?",
-    a: "Most projects kick off within 3–5 business days of signing. Premium e-commerce builds may schedule 1–2 weeks out.",
+    a: "Start dates and delivery estimates are confirmed after reviewing your scope and content readiness. Small pages and larger store or backend projects have different timelines; your proposal sets the milestones.",
   },
 ];
 
