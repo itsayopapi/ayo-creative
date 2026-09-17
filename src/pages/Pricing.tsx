@@ -12,7 +12,7 @@ export default function PricingPage() {
     "Website pricing from $100 USD: landing pages and portfolios $100–$200; company sites, starter stores and scoped backend projects $300–$500. Hosting and domain setup excluded.",
     "/pricing"
   );
-  const { info, convert, localize, loading, failed, retry } = useCurrency();
+  const { info, convert, localize, loading } = useCurrency();
 
   return (
       <div className="pt-20 sm:pt-24 pb-12 px-5 sm:px-6 md:px-10 border-t border-white/5">
@@ -41,17 +41,6 @@ export default function PricingPage() {
               </ul>
             </aside>
           </div>
-          <p role="status" className="text-[#ff6b35] text-xs mt-4 flex flex-wrap items-center justify-center gap-2">
-            <span aria-hidden="true">💱</span>
-            {loading
-              ? "Detecting your local currency from your IP address…"
-              : failed
-                ? "Local currency is temporarily unavailable. Showing USD base prices."
-                : info.code === "USD"
-                  ? "Prices automatically selected in USD based on your approximate IP location."
-                  : `Automatically showing approximate ${info.code} prices based on your IP location. Your quote confirms the final amount.`}
-            {failed && <button type="button" onClick={retry} className="underline underline-offset-4 rounded-lg px-3 py-2 focus-visible:outline focus-visible:outline-2">Retry detection</button>}
-          </p>
         </div>
         <div id="website-packages" className="scroll-mt-28 mb-8 flex flex-col lg:flex-row lg:items-end justify-between gap-4">
           <div><p className="text-[#ff6b35] text-xs uppercase tracking-widest mb-3">01 / Choose your website</p><h2 className="font-display text-3xl sm:text-4xl font-bold">A package for your next step.</h2></div>
