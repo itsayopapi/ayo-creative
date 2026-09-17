@@ -13,7 +13,7 @@ export default function PricingPage() {
     "Website pricing from $100 USD: landing pages and portfolios $100–$200; company sites, starter stores and scoped backend projects $300–$500. Hosting and domain setup excluded.",
     "/pricing"
   );
-  const { info, convert } = useCurrency();
+  const { info, convert, localize, loading, failed, retry } = useCurrency();
 
   return (
     <section className="py-28 px-6 md:px-10 border-t border-white/5">
@@ -36,11 +36,16 @@ export default function PricingPage() {
             Choose the kind of website you need, then agree a fixed scope and price before work begins. The ranges below are for the listed deliverables, not unlimited features.
             <span className="text-[#f0ebe0]"> Hosting, domains, and their setup are not included.</span>
           </p>
-          <p className="text-[#ff6b35] text-xs mt-4 flex items-center justify-center gap-2">
+          <p role="status" className="text-[#ff6b35] text-xs mt-4 flex flex-wrap items-center justify-center gap-2">
             <span aria-hidden="true">💱</span>
-            {info.code === "USD"
-              ? "Base prices in USD. Any local-currency estimates are indicative; your quote confirms the final currency and amount."
-              : `Approximate ${info.code} conversions of USD base prices. Exchange rates can change; your quote confirms the final amount.`}
+            {loading
+              ? "Detecting your local currency from your IP address…"
+              : failed
+                ? "Local currency is temporarily unavailable. Showing USD base prices."
+                : info.code === "USD"
+                  ? "Prices automatically selected in USD based on your approximate IP location."
+                  : `Automatically showing approximate ${info.code} prices based on your IP location. Your quote confirms the final amount.`}
+            {failed && <button type="button" onClick={retry} className="underline underline-offset-4 rounded-lg px-3 py-2 focus-visible:outline focus-visible:outline-2">Retry detection</button>}
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
@@ -50,11 +55,11 @@ export default function PricingPage() {
               <p className="font-display text-3xl font-black text-[#ff6b35] flex flex-wrap items-baseline gap-x-2 break-all">
                 <span>{convert(p.min)}</span><span aria-hidden="true">–</span><span className="sr-only">to</span><span>{convert(p.max)}</span>
               </p>
-              <p className="text-xs text-[#aaa] mt-2 mb-5">{info.code} · one-time build · scoped range</p>
+              <p className="text-xs text-[#aaa] mt-2 mb-5">{loading ? "Detecting currency…" : info.code} · one-time build · scoped range</p>
               <p className="text-sm text-[#aaa] leading-relaxed mb-5">{p.description}</p>
               <div className="rounded-xl bg-white/5 p-4 text-sm leading-relaxed mb-5">
-                <p className="text-[#f0ebe0]">{p.entry}</p>
-                <p className="text-[#aaa] mt-3">{p.upgrade}</p>
+                <p className="text-[#f0ebe0]">{localize(p.entry)}</p>
+                <p className="text-[#aaa] mt-3">{localize(p.upgrade)}</p>
               </div>
               <ul className="flex flex-col gap-3 flex-1 mb-7">
                 {p.features.map((feature) => (
@@ -128,7 +133,7 @@ export default function PricingPage() {
                   "Domain registration and hosting subscriptions — paid directly to your providers",
                   "Domain / hosting setup assistance — quoted separately",
                   "Paid themes, plugins, stock assets, APIs, and payment processing fees",
-                  "Optional care plans after the agreed support window — from $99 USD/mo",
+                  `Optional care plans after the agreed support window — from ${convert(99)}/mo`,
                 ].map((f) => (
                   <li key={f} className="flex items-start gap-2.5 text-sm text-[#888880]">
                     <span className="text-[#555] mt-0.5 flex-shrink-0">→</span>
