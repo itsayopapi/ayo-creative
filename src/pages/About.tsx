@@ -1,13 +1,12 @@
 import { useSEO } from "../hooks/useSEO";
 import { Link } from "react-router-dom";
-import founderImg from "../img/founder.jpeg";
-import logoImg from "../img/logo.jpg";
 import { VALUES } from "../data/content";
 import CTABanner from "../components/CTABanner";
 
 const FALLBACK =
   "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=1000&fit=crop&auto=format&crop=face";
-void FALLBACK; // kept for future image fallbacks
+const LOGO_URL = "/img/logo.jpg";
+const FOUNDER_URL = "/img/founder.jpeg";
 
 export default function About() {
   useSEO(
@@ -40,7 +39,7 @@ export default function About() {
             <div className="relative mx-auto w-full max-w-md lg:max-w-none lg:sticky lg:top-28">
               <div className="aspect-square w-full max-w-sm mx-auto overflow-hidden rounded-full border border-white/10 bg-[#080808]">
                 <img
-                  src={logoImg}
+                  src={LOGO_URL}
                   alt="Ayo Creative Designs logo"
                   className="w-full h-full object-contain p-12 sm:p-16"
                   loading="eager"
@@ -76,7 +75,7 @@ export default function About() {
             {/* Founder signature card */}
             <div className="mt-10 bg-[#111] border border-white/5 rounded-lg p-6 flex items-center gap-4">
               <img
-                src={founderImg}
+                src={FOUNDER_URL}
                 alt=""
                 aria-hidden="true"
                 className="w-12 h-12 rounded-full object-cover border border-[#ff6b35]/30 flex-shrink-0"
