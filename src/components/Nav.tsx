@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { label: "Pricing", href: "/pricing" },
   { label: "Process", href: "/process" },
   { label: "About", href: "/about" },
+  { label: "Dev4Hire", href: "/dev4hire" },
 ];
 
 type HeaderProps = {

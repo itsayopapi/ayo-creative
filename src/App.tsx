@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Process from "./pages/Process";
 import Showcase from "./pages/Showcase";
 import Contact from "./pages/Contact";
+import Dev4Hire from "./pages/Dev4Hire";
 
 // ─── APP ─────────────────────────────────────────────────────────────────────
 
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/process" element={<Process />} />
           <Route path="/showcase" element={<Showcase />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/dev4hire" element={<Dev4Hire />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </Layout>

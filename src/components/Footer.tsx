@@ -6,6 +6,7 @@ const SITEMAP = [
   { label: "Pricing", to: "/pricing" },
   { label: "Process", to: "/process" },
   { label: "About", to: "/about" },
+  { label: "Dev4Hire", to: "/dev4hire" },
   { label: "Contact", to: "/contact" },
 ];
 
