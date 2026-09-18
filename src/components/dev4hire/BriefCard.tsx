@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { FORM_ENDPOINT, type Status } from "./shared";
-import type { OpenProject } from "../../data/dev4hire";
+import type { DevBrief } from "../../data/dev4hire";
 
-export default function ProjectCard({ project }: { project: OpenProject }) {
+export default function BriefCard({ project }: { project: DevBrief }) {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [f, setF] = useState({ name: "", email: "", country: "", role: project.roles[0]?.title ?? "", links: "", exp: "", avail: "" });
@@ -11,7 +11,7 @@ export default function ProjectCard({ project }: { project: OpenProject }) {
     e.preventDefault();
     setStatus("sending");
     const body = {
-      _subject: "Contributor application - " + f.name,
+      _subject: "Dev4Hire brief interest - " + f.name,
       _template: "table",
       _captcha: "false",
       "Full Name": f.name,
@@ -42,9 +42,9 @@ export default function ProjectCard({ project }: { project: OpenProject }) {
           </div>
           <h3 className="font-display text-2xl font-bold mb-2">{project.title}</h3>
           <p className="text-sm text-[#bbb] mb-4">{project.summary}</p>
-          <p className="text-sm mb-1"><span className="text-[#888]">Budget: </span><span className="text-[#ff6b35] font-semibold">{project.budget}</span></p>
+          <p className="text-sm mb-1"><span className="text-[#888]">Dev4Hire budget: </span><span className="text-[#ff6b35] font-semibold">{project.budget}</span></p>
           <p className="text-sm mb-5"><span className="text-[#888]">Timeline: </span>{project.timeline}</p>
-          <button type="button" onClick={() => setOpen(true)} className="w-full rounded-xl border border-white/15 px-5 py-3.5 text-sm font-semibold hover:bg-white/5 min-h-[52px]">View details and apply</button>
+          <button type="button" onClick={() => setOpen(true)} className="w-full rounded-xl border border-white/15 px-5 py-3.5 text-sm font-semibold hover:bg-white/5 min-h-[52px]">View brief and apply</button>
         </div>
       </article>
     );
@@ -67,7 +67,7 @@ export default function ProjectCard({ project }: { project: OpenProject }) {
           ))}
         </div>
         {status === "success" ? (
-          <p className="rounded-xl border border-[#ff6b35]/30 bg-[#ff6b35]/5 p-5 text-sm text-center">Application received. Shortlisted contributors hear back within 5 working days.</p>
+          <p className="rounded-xl border border-[#ff6b35]/30 bg-[#ff6b35]/5 p-5 text-sm text-center">Interest registered. We contact matching Dev4Hire people when this brief starts.</p>
         ) : (
           <form onSubmit={submit} className="grid sm:grid-cols-2 gap-3">
             <input required value={f.name} onChange={(e) => upd("name", e.target.value)} placeholder="Full name *" className="w-full rounded-xl bg-[#0d0d0d] border border-white/10 px-4 py-3 text-sm min-h-[52px]" />
@@ -80,7 +80,7 @@ export default function ProjectCard({ project }: { project: OpenProject }) {
             <textarea required value={f.exp} onChange={(e) => upd("exp", e.target.value)} rows={3} placeholder="Relevant experience *" className="sm:col-span-2 w-full rounded-xl bg-[#0d0d0d] border border-white/10 px-4 py-3 text-sm" />
             <input value={f.avail} onChange={(e) => upd("avail", e.target.value)} placeholder="Availability" className="sm:col-span-2 w-full rounded-xl bg-[#0d0d0d] border border-white/10 px-4 py-3 text-sm min-h-[52px]" />
             {status === "error" && (<p className="sm:col-span-2 text-sm text-red-300">Something went wrong. Please try again.</p>)}
-            <button type="submit" disabled={status === "sending"} className="sm:col-span-2 btn-orange text-white text-sm font-bold py-4 rounded-xl disabled:opacity-60">{status === "sending" ? "Sending…" : "Submit application"}</button>
+            <button type="submit" disabled={status === "sending"} className="sm:col-span-2 btn-orange text-white text-sm font-bold py-4 rounded-xl disabled:opacity-60">{status === "sending" ? "Sending…" : "Register interest"}</button>
           </form>
         )}
       </div>

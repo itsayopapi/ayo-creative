@@ -1,4 +1,4 @@
-export type OpenProject = {
+export type DevBrief = {
   id: string;
   title: string;
   summary: string;
@@ -10,7 +10,7 @@ export type OpenProject = {
   about: string[];
 };
 
-export const CONTRIBUTOR_ROLES = [
+export const DEV_ROLES = [
   {
     title: "Frontend developers",
     desc: "React, Next.js and responsive interfaces. You build accessible, mobile-first screens from clear specs.",
@@ -44,12 +44,11 @@ export const CONTRIBUTOR_ROLES = [
 ];
 
 // ─── EDIT THESE ──────────────────────────────────────────────────────────────
-// Replace the samples below with your real open projects.
-// To hide the board temporarily, set OPEN_PROJECTS to an empty array:
-//   export const OPEN_PROJECTS: OpenProject[] = [];
-// The page automatically shows a "join the talent pool" state instead.
+// Replace the sample below with your real Dev4Hire brief.
+// To hide the board temporarily, set DEV_BRIEFS to an empty array:
+//   export const DEV_BRIEFS: DevBrief[] = [];
 
-export const OPEN_PROJECTS: OpenProject[] = [
+export const DEV_BRIEFS: DevBrief[] = [
   {
     id: "wordpress-uiux",
     title: "WordPress build — UI/UX designer + QA",
@@ -80,7 +79,7 @@ export const OPEN_PROJECTS: OpenProject[] = [
   },
 ];
 
-export const PROJECT_CATEGORIES = [
+export const DEV_CATEGORIES = [
   {
     id: "wordpress",
     title: "WordPress projects",
@@ -125,29 +124,29 @@ export const PROJECT_CATEGORIES = [
   },
 ];
 
-export const CONTRIBUTOR_FAQS = [
+export const DEV_FAQS = [
   {
-    q: "How do I get paid?",
-    a: "Each task or milestone has a fixed fee agreed in writing before you start. When your work passes the stated acceptance criteria, payment is released via bank transfer, Wise or another method agreed with you.",
+    q: "How does Dev4Hire pay?",
+    a: "Each Dev4Hire task or milestone has a fixed fee agreed in writing before you start. When your work passes the stated acceptance criteria, payment is released via bank transfer, Wise or another method agreed with you.",
   },
   {
-    q: "I'm a tester, not a developer. Can I apply?",
-    a: "Yes — testers are core to this board. Manual QA, device testing, exploratory testing and regression cycles are paid roles on every extensive build.",
+    q: "I'm a tester, not a developer. Can I register?",
+    a: "Yes — testers are core to Dev4Hire. Manual QA, device testing, exploratory testing and regression cycles are paid roles on extensive builds.",
   },
   {
     q: "Do I need to be in a specific country?",
-    a: "No. All contributor roles are remote. You just need reliable internet, overlap for at least one weekly check-in, and the ability to receive international payments.",
+    a: "No. All Dev4Hire roles are remote. You just need reliable internet, overlap for at least one weekly check-in, and the ability to receive international payments.",
   },
   {
-    q: "How are contributors selected?",
-    a: "We review your experience, portfolio or past bug reports, availability and fit for the specific milestone. Shortlisted contributors get a small paid trial task before a larger milestone.",
+    q: "How are Dev4Hire people selected?",
+    a: "We review your experience, portfolio or past bug reports, availability and fit for the specific milestone. Shortlisted people get a small paid trial task before a larger milestone.",
   },
   {
     q: "Who owns the work?",
     a: "Work delivered under a paid milestone belongs to the project owner on payment, as stated in the contributor agreement you approve before starting.",
   },
   {
-    q: "What if there are no open projects right now?",
-    a: "Join the talent pool anyway using the form below. When a project matching your role opens, you'll be contacted before the public posting goes wider.",
+    q: "What if there are no Dev4Hire briefs right now?",
+    a: "Register below using the form. When a brief matching your role opens, you'll be contacted before the public posting goes wider.",
   },
 ];
