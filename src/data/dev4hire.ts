@@ -1,152 +1,104 @@
-export type DevBrief = {
+export const DEV_FLOW = "CLIENT > AYO CREATIVE DESIGNS > DEV4HIRE > TECH PROFESSIONAL > DELIVERY > PAYMENT";
+
+export const DEV_STEPS = [
+  { n: "01", title: "Register", desc: "Create your Dev4Hire profile and tell us what you do." },
+  { n: "02", title: "Share your skills", desc: "Select skills, experience, interests and preferred project types." },
+  { n: "03", title: "Get matched", desc: "When a project fits your profile, you are shortlisted as a candidate." },
+  { n: "04", title: "Get notified", desc: "Receive an email and website notification about the paid opportunity." },
+  { n: "05", title: "Express interest", desc: "Review the brief and confirm you are available and interested." },
+  { n: "06", title: "Build and get paid", desc: "Complete the work to the agreed requirements and receive your payout." },
+];
+
+export const DEV_VALUES = [
+  { t: "Real projects", d: "Actual projects sourced through Ayo Creative Designs." },
+  { t: "Relevant opportunities", d: "Matching uses skills, interests and availability." },
+  { t: "Flexible work", d: "Pick briefs that fit expertise and schedule." },
+  { t: "Get paid", d: "Terms and agreed payout are clear before you start." },
+];
+
+export const TALENT_GROUPS = [
+  { title: "Development", items: ["Frontend", "Backend", "Full Stack", "Mobile", "WordPress", "Shopify"] },
+  { title: "Design", items: ["UI/UX", "Product Design", "Graphic Design", "Brand Identity", "Motion Design"] },
+  { title: "Testing and QA", items: ["Manual Testing", "Automation", "QA Engineering", "Performance Testing"] },
+  { title: "Cybersecurity", items: ["Security Testing", "Vulnerability Assessment", "SOC", "Hardening"] },
+  { title: "Other Tech", items: ["DevOps", "Cloud", "AI/ML", "Data", "SEO", "Project Management"] },
+];
+
+export const TALENT_BENEFITS = [
+  "Access paid project opportunities",
+  "Build your professional portfolio",
+  "Work on projects aligned with your skills",
+  "Receive relevant opportunity notifications",
+  "Flexible project participation",
+  "Transparent project expectations",
+  "Know your agreed payout before starting",
+];
+
+export const CLIENT_POINTS = [
+  "Project scoping",
+  "Talent sourcing",
+  "Project management",
+  "Quality control",
+  "Client communication",
+  "Delivery management",
+];
+
+export const ACD_HANDLES = [
+  "Client relationships",
+  "Project scoping",
+  "Talent sourcing",
+  "Project coordination",
+  "Quality control",
+  "Delivery management",
+  "Payment coordination",
+];
+
+export const TRUST_CARDS = [
+  { t: "Skill matching", d: "Projects are matched with relevant professionals." },
+  { t: "Human review", d: "Applications can be reviewed before talent is selected." },
+  { t: "Project oversight", d: "Ayo Creative Designs remains involved in the project." },
+  { t: "Professional standards", d: "Clear expectations, deadlines and deliverables." },
+];
+
+export const MATCH_SIGNALS = ["Skills", "Professional category", "Experience", "Availability", "Project interests", "Preferred project type"];
+
+export type SampleOpportunity = {
   id: string;
   title: string;
-  summary: string;
-  budget: string;
-  timeline: string;
-  location: string;
-  status: string;
-  roles: { title: string; type: string; pay: string; skills: string[] }[];
-  about: string[];
+  category: string;
+  skills: string[];
+  duration: string;
+  payout: string;
 };
 
-export const DEV_ROLES = [
-  {
-    title: "Frontend developers",
-    desc: "React, Next.js and responsive interfaces. You build accessible, mobile-first screens from clear specs.",
-    tags: ["React", "TypeScript", "Tailwind CSS"],
-  },
-  {
-    title: "Backend developers",
-    desc: "APIs, databases and integrations. You deliver tested endpoints with clear documentation.",
-    tags: ["Node.js", "REST APIs", "Databases"],
-  },
-  {
-    title: "QA testers",
-    desc: "Manual and exploratory testing across devices. You find the bugs users would find first.",
-    tags: ["Manual testing", "Bug reports", "Mobile + desktop"],
-  },
-  {
-    title: "Automation testers",
-    desc: "Repeatable test coverage for critical flows like checkout, signup and payments.",
-    tags: ["Test cases", "Regression suites", "CI-friendly"],
-  },
-  {
-    title: "UI / UX contributors",
-    desc: "Layouts, prototypes and design polish for specific screens or flows.",
-    tags: ["Figma", "Prototypes", "Design systems"],
-  },
-  {
-    title: "No-code / CMS helpers",
-    desc: "Content entry, store setup and CMS configuration for larger launches.",
-    tags: ["Shopify", "WordPress", "Content ops"],
-  },
+export const OPP_FILTERS = ["All", "Development", "Design", "Testing", "Cybersecurity", "Other"];
+
+export const SAMPLE_OPPORTUNITIES: SampleOpportunity[] = [
+  { id: "react-saas", title: "React Developer - SaaS Dashboard", category: "Development", skills: ["React", "TypeScript", "Tailwind"], duration: "2-3 Weeks", payout: "N200,000" },
+  { id: "uiux-mobile", title: "UI/UX Designer - Mobile Application", category: "Design", skills: ["Figma", "UX", "Mobile UI"], duration: "10 Days", payout: "N180,000" },
+  { id: "qa-web", title: "QA Tester - Web Application", category: "Testing", skills: ["Manual Testing", "API Testing"], duration: "1 Week", payout: "N120,000" },
+  { id: "wp-build", title: "WordPress Developer - Company Site", category: "Development", skills: ["WordPress", "WooCommerce", "PHP"], duration: "2 Weeks", payout: "N250,000" },
+  { id: "soc-review", title: "Security Review - Vulnerability Assessment", category: "Cybersecurity", skills: ["Security Testing", "OWASP"], duration: "1 Week", payout: "N150,000" },
+  { id: "devops-setup", title: "DevOps Helper - Deploy and Harden VPS", category: "Other", skills: ["Linux", "Nginx", "Backups"], duration: "5 Days", payout: "N130,000" },
 ];
 
-// ─── EDIT THESE ──────────────────────────────────────────────────────────────
-// Replace the sample below with your real Dev4Hire brief.
-// To hide the board temporarily, set DEV_BRIEFS to an empty array:
-//   export const DEV_BRIEFS: DevBrief[] = [];
-
-export const DEV_BRIEFS: DevBrief[] = [
-  {
-    id: "wordpress-uiux",
-    title: "WordPress build — UI/UX designer + QA",
-    summary: "A WordPress project that needs a design pass and careful testing before launch.",
-    budget: "Fixed-fee milestones, agreed before work starts",
-    timeline: "Remote · async-friendly · milestone-based",
-    location: "Remote — worldwide",
-    status: "Accepting interest",
-    roles: [
-      {
-        title: "UI/UX designer",
-        type: "Register interest",
-        pay: "Fee agreed per milestone",
-        skills: ["Page layouts", "Mobile polish", "Design handoff"],
-      },
-      {
-        title: "QA tester",
-        type: "Register interest",
-        pay: "Fee agreed per test cycle",
-        skills: ["Cross-device checks", "Form testing", "Clear bug reports"],
-      },
-    ],
-    about: [
-      "This is an interest list, not an instant hire — we contact matching people when the build starts.",
-      "Fixed fee and definition of done are agreed in writing before any work begins.",
-      "Remote and async-friendly, with one weekly check-in.",
-    ],
-  },
-];
-
-export const DEV_CATEGORIES = [
-  {
-    id: "wordpress",
-    title: "WordPress projects",
-    desc: "Theme builds, customisation, WooCommerce setup, redesigns and cleanups.",
-    example: "Example: a WordPress build that needs a UI/UX designer plus QA.",
-    tags: ["UI/UX designer", "Frontend", "QA tester"],
-  },
-  {
-    id: "company",
-    title: "Company & business websites",
-    desc: "Multi-page company sites, services, booking and enquiry flows.",
-    example: "Example: a 5-page company site needing build plus device testing.",
-    tags: ["Frontend", "Backend", "QA tester"],
-  },
-  {
-    id: "ecommerce",
-    title: "Online stores",
-    desc: "Product setup, cart, checkout, payments and store testing.",
-    example: "Example: a starter store needing product entry and checkout QA.",
-    tags: ["Frontend", "CMS helper", "QA tester"],
-  },
-  {
-    id: "landing",
-    title: "Landing pages & portfolios",
-    desc: "Single-page launches, campaigns and personal portfolio sites.",
-    example: "Example: a launch page needing fast build and mobile QA.",
-    tags: ["Frontend", "UI/UX", "QA tester"],
-  },
-  {
-    id: "webapp",
-    title: "Custom web apps & backend",
-    desc: "Dashboards, APIs, small tools and database-backed workflows.",
-    example: "Example: a reporting MVP needing full-stack plus automation tests.",
-    tags: ["Full-stack", "Backend", "Automation tester"],
-  },
-  {
-    id: "fixes",
-    title: "Redesigns, fixes & QA cycles",
-    desc: "Audits, bug hunts, speed improvements and cross-device testing.",
-    example: "Example: a redesign QA cycle needing manual and automation testers.",
-    tags: ["QA tester", "Automation tester", "Frontend"],
-  },
-];
+export const DEV_REG_CATEGORIES = ["Developer", "Designer", "Tester / QA", "Cybersecurity", "DevOps / Cloud", "Data / AI", "Other"];
+export const DEV_REG_EXPERIENCE = ["Beginner", "Junior", "Mid-Level", "Senior", "Expert"];
+export const DEV_REG_AVAILABILITY = ["Immediately Available", "Available This Week", "Part-Time", "Evenings / Weekends", "Currently Unavailable"];
+export const DEV_REG_PREFS = ["Short-Term", "Long-Term", "One-Off", "Contract", "Flexible"];
+export const REGISTER_SKILLS = ["React", "TypeScript", "Next.js", "WordPress", "Figma", "UI/UX", "Manual Testing", "Automation", "Node.js", "Python", "PHP", "Cybersecurity", "DevOps", "SEO"];
 
 export const DEV_FAQS = [
-  {
-    q: "How does Dev4Hire pay?",
-    a: "Each Dev4Hire task or milestone has a fixed fee agreed in writing before you start. When your work passes the stated acceptance criteria, payment is released via bank transfer, Wise or another method agreed with you.",
-  },
-  {
-    q: "I'm a tester, not a developer. Can I register?",
-    a: "Yes — testers are core to Dev4Hire. Manual QA, device testing, exploratory testing and regression cycles are paid roles on extensive builds.",
-  },
-  {
-    q: "Do I need to be in a specific country?",
-    a: "No. All Dev4Hire roles are remote. You just need reliable internet, overlap for at least one weekly check-in, and the ability to receive international payments.",
-  },
-  {
-    q: "How are Dev4Hire people selected?",
-    a: "We review your experience, portfolio or past bug reports, availability and fit for the specific milestone. Shortlisted people get a small paid trial task before a larger milestone.",
-  },
-  {
-    q: "Who owns the work?",
-    a: "Work delivered under a paid milestone belongs to the project owner on payment, as stated in the contributor agreement you approve before starting.",
-  },
-  {
-    q: "What if there are no Dev4Hire briefs right now?",
-    a: "Register below using the form. When a brief matching your role opens, you'll be contacted before the public posting goes wider.",
-  },
+  { q: "What is Dev4Hire?", a: "Dev4Hire is the talent network run by Ayo Creative Designs. Client projects come to us; when we need extra capacity, matching developers, designers, testers and other tech professionals are notified about paid work." },
+  { q: "Who can register?", a: "Developers, designers, testers, cybersecurity professionals and related tech specialists - remote, from anywhere in the world." },
+  { q: "Do I have to be a developer?", a: "No. Design, QA, cybersecurity, DevOps, data, writing and support roles are all welcome." },
+  { q: "How do I receive project opportunities?", a: "By email and website notification. Keep your skills, category and availability current so matching stays accurate." },
+  { q: "Do I have to pay to join?", a: "No. Joining is free. Payouts are agreed in writing before any project begins." },
+  { q: "How are freelancers selected?", a: "By skills, portfolio, availability and fit for the brief. Shortlisted people may get a small paid trial first." },
+  { q: "How do I get paid?", a: "Fixed-fee milestones. When work passes the stated acceptance criteria, payment is released via an agreed method such as bank transfer or Wise." },
+  { q: "Can I reject an opportunity?", a: "Yes. Notifications are invitations, never obligations." },
+  { q: "Can I register if I already have a full-time job?", a: "Yes. Set your availability honestly and we match around evenings, weekends or part-time windows." },
+  { q: "Does joining Dev4Hire guarantee work?", a: "No. Registration puts you in the matching pool; projects depend on client demand and fit." },
+  { q: "Can clients submit projects?", a: "Yes - use the For Clients section or the contact page. We scope the work, source talent and manage delivery." },
+  { q: "What happens after I express interest?", a: "Shortlisted professionals are reviewed, selected talent agrees written terms, then delivery and payout follow." },
 ];

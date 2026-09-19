@@ -72,7 +72,7 @@ export default function Nav() {
                       <span className="text-[11px] font-mono text-[#555]">0{idx + 1}</span>
                       <span className="font-display text-2xl font-bold tracking-tight">{l.label}</span>
                     </span>
-                    <span className="text-lg text-[#555] transition-transform duration-200 group-active:translate-x-1">â†’</span>
+                    <span className="text-lg text-[#555] transition-transform duration-200 group-active:translate-x-1">→</span>
                   </NavLink>
                 ))}
               </nav>
