@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { NavLink, Link, useLocation } from "react-router-dom";
 
@@ -11,11 +11,11 @@ const NAV_LINKS = [
 ];
 
 const DEV4HIRE_ITEMS = [
-  { label: "Opportunities", href: "/dev4hire#dh-opportunities", desc: "Projects looking for talent" },
-  { label: "How It Works", href: "/dev4hire#dh-how-it-works", desc: "Join, match, build, get paid" },
-  { label: "For Talent", href: "/dev4hire#dh-categories", desc: "Not just developers" },
-  { label: "For Clients", href: "/dev4hire#dh-for-clients", desc: "Need tech talent?" },
-  { label: "FAQ", href: "/dev4hire#dh-faq", desc: "Common questions" },
+  { label: "Opportunities", href: "/dev4hire/opportunities", desc: "Projects looking for talent" },
+  { label: "How It Works", href: "/dev4hire/how-it-works", desc: "Join, match, build, get paid" },
+  { label: "For Talent", href: "/dev4hire/talent", desc: "Experience & portfolio building" },
+  { label: "For Clients", href: "/dev4hire/clients", desc: "Need tech talent?" },
+  { label: "Join", href: "/dev4hire/register", desc: "Create your profile — free" },
 ];
 
 type HeaderProps = {
@@ -152,7 +152,7 @@ function MobileDev4Hire({ delay, onNavigate }: { delay: number; onNavigate: () =
               <span className="text-[#555]">→</span>
             </Link>
           ))}
-          <Link to="/dev4hire#dh-register" onClick={onNavigate} className="btn-orange text-white text-center text-sm font-bold px-5 py-3.5 rounded-xl mt-2 min-h-[52px] flex items-center justify-center">
+          <Link to="/dev4hire/register" onClick={onNavigate} className="btn-orange text-white text-center text-sm font-bold px-5 py-3.5 rounded-xl mt-2 min-h-[52px] flex items-center justify-center">
             Join the Network
           </Link>
         </div>
@@ -212,7 +212,7 @@ function Dev4HireDropdown() {
               </Link>
             ))}
             <Link
-              to="/dev4hire#dh-register"
+              to="/dev4hire/register"
               role="menuitem"
               onClick={() => setOpen(false)}
               className="block px-5 py-4 bg-[#ff6b35] text-white text-sm font-bold text-center hover:bg-[#ff8a5b] transition-colors"

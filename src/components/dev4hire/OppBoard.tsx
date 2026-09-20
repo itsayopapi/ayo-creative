@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { OPP_FILTERS, SAMPLE_OPPORTUNITIES } from "../../data/dev4hire";
 
 function OppCard({ o }: { o: (typeof SAMPLE_OPPORTUNITIES)[number] }) {
@@ -19,7 +20,7 @@ function OppCard({ o }: { o: (typeof SAMPLE_OPPORTUNITIES)[number] }) {
       {open && (
         <div className="mt-4 rounded-xl border border-white/10 bg-[#0d0d0d] p-4 text-xs text-[#aaa] leading-relaxed">
           <p className="mb-2">Example brief format. Real briefs include full description, requirements, deadline, payout and an express-interest form.</p>
-          <a href="#dh-register" className="text-[#ff6b35] font-semibold">Register to get notified →</a>
+          <Link to="/dev4hire/register" className="text-[#ff6b35] font-semibold">Register to get notified →</Link>
         </div>
       )}
     </article>
