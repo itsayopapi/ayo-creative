@@ -1,6 +1,7 @@
 import { useSEO } from "../hooks/useSEO";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import FAQ from "../components/FAQ";
-import { DevNav } from "../components/dev4hire/DevNav";
 import DevHero from "../components/dev4hire/DevHero";
 import { ValueProp, WhoCanJoin, HowItWorks, ForTalent, NotifyExample } from "../components/dev4hire/DevSections";
 import { ForClients, AyoAdvantage, PaymentTransparency, TrustSection, FinalCTA } from "../components/dev4hire/ForClients";
@@ -10,9 +11,17 @@ import { DEV_FAQS } from "../data/dev4hire";
 
 export default function Dev4Hire() {
   useSEO("Dev4Hire — Your Skills. Our Projects.", "Join the Dev4Hire talent network: developers, designers, testers and cybersecurity professionals matched with paid project opportunities.", "/dev4hire");
+  const location = useLocation();
+  useEffect(() => {
+    if (!location.hash) return;
+    const el = document.getElementById(location.hash.slice(1));
+    if (el) {
+      const t = setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+      return () => clearTimeout(t);
+    }
+  }, [location.hash]);
   return (
     <div className="pt-20 sm:pt-24 pb-12 px-5 sm:px-6 md:px-10 border-t border-white/5">
-      <DevNav />
       <div className="max-w-7xl mx-auto">
         <DevHero />
         <ValueProp />

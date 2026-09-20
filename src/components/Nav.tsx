@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 
 const NAV_LINKS = [
   { label: "What We Build", href: "/showcase" },
@@ -8,7 +8,14 @@ const NAV_LINKS = [
   { label: "Pricing", href: "/pricing" },
   { label: "Process", href: "/process" },
   { label: "About", href: "/about" },
-  { label: "Dev4Hire", href: "/dev4hire" },
+];
+
+const DEV4HIRE_ITEMS = [
+  { label: "Opportunities", href: "/dev4hire#dh-opportunities", desc: "Projects looking for talent" },
+  { label: "How It Works", href: "/dev4hire#dh-how-it-works", desc: "Join, match, build, get paid" },
+  { label: "For Talent", href: "/dev4hire#dh-categories", desc: "Not just developers" },
+  { label: "For Clients", href: "/dev4hire#dh-for-clients", desc: "Need tech talent?" },
+  { label: "FAQ", href: "/dev4hire#dh-faq", desc: "Common questions" },
 ];
 
 type HeaderProps = {
@@ -60,7 +67,7 @@ export default function Nav() {
                 Menu
               </p>
               <nav aria-label="Mobile" className="flex flex-col">
-                {NAV_LINKS.map((l, idx) => (
+                {NAV_LINKS.slice(0, 5).map((l, idx) => (
                   <NavLink
                     key={l.label}
                     to={l.href}
@@ -75,6 +82,7 @@ export default function Nav() {
                     <span className="text-lg text-[#555] transition-transform duration-200 group-active:translate-x-1">→</span>
                   </NavLink>
                 ))}
+                <MobileDev4Hire delay={120 + 5 * 60} onNavigate={() => setMenuOpen(false)} />
               </nav>
 
               <div className="menu-item-in mt-8" style={{ animationDelay: (120 + NAV_LINKS.length * 60) + "ms" }}>
@@ -111,6 +119,113 @@ export default function Nav() {
   return <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} scrolled={scrolled} />;
 }
 
+function MobileDev4Hire({ delay, onNavigate }: { delay: number; onNavigate: () => void }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="menu-item-in border-b border-white/5" style={{ animationDelay: delay + "ms" }}>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        className="w-full flex items-center justify-between py-4 min-h-[60px] active:bg-white/5 rounded-lg px-2 -mx-2 transition-colors"
+      >
+        <span className="flex items-center gap-4">
+          <span className="text-[11px] font-mono text-[#555]">06</span>
+          <span className="font-display text-2xl font-bold tracking-tight">Dev4Hire</span>
+        </span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className={"transition-transform duration-300 " + (open ? "rotate-180" : "")}>
+          <path d="M3 6l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+      {open && (
+        <div className="pb-4 pt-1 flex flex-col gap-1">
+          <Link to="/dev4hire" onClick={onNavigate} className="flex items-center justify-between px-3 py-3.5 rounded-xl bg-white/5 min-h-[52px] active:bg-[#ff6b35]/10 transition-colors">
+            <span className="text-sm font-semibold">Dev4Hire Overview</span>
+            <span className="text-[#555]">→</span>
+          </Link>
+          {DEV4HIRE_ITEMS.map((item) => (
+            <Link key={item.label} to={item.href} onClick={onNavigate} className="flex items-center justify-between px-3 py-3.5 rounded-xl hover:bg-white/5 min-h-[52px] active:bg-[#ff6b35]/10 transition-colors">
+              <span>
+                <span className="text-sm font-semibold block">{item.label}</span>
+                <span className="text-[11px] text-[#777]">{item.desc}</span>
+              </span>
+              <span className="text-[#555]">→</span>
+            </Link>
+          ))}
+          <Link to="/dev4hire#dh-register" onClick={onNavigate} className="btn-orange text-white text-center text-sm font-bold px-5 py-3.5 rounded-xl mt-2 min-h-[52px] flex items-center justify-center">
+            Join the Network
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Dev4HireDropdown() {
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const active = location.pathname.startsWith("/dev4hire");
+  useEffect(() => {
+    if (!open) return;
+    const close = () => setOpen(false);
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    window.addEventListener("click", close);
+    window.addEventListener("keydown", onKey);
+    return () => { window.removeEventListener("click", close); window.removeEventListener("keydown", onKey); };
+  }, [open]);
+  return (
+    <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+      <button
+        type="button"
+        aria-haspopup="true"
+        aria-expanded={open}
+        onClick={(e) => { e.stopPropagation(); setOpen(!open); }}
+        className={"nav-link text-sm transition-colors duration-200 flex items-center gap-1.5 min-h-[44px] " + (active ? "active text-[#ff6b35]" : "text-[#888880] hover:text-[#f0ebe0]")}
+      >
+        Dev4Hire
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" className={"transition-transform duration-200 " + (open ? "rotate-180" : "")}>
+          <path d="M1 3l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+      {open && (
+        <div className="absolute right-0 top-full pt-3 z-50" role="menu" aria-label="Dev4Hire">
+          <div className="w-72 rounded-2xl border border-white/10 bg-[#111] shadow-2xl shadow-black/60 overflow-hidden">
+            <Link
+              to="/dev4hire"
+              role="menuitem"
+              onClick={() => setOpen(false)}
+              className="block px-5 py-4 border-b border-white/5 hover:bg-[#ff6b35]/10 transition-colors group"
+            >
+              <p className="font-display font-bold text-sm group-hover:text-[#ff6b35] transition-colors">Dev4Hire Overview</p>
+              <p className="text-[11px] text-[#777] mt-0.5">Your skills. Our projects.</p>
+            </Link>
+            {DEV4HIRE_ITEMS.map((item) => (
+              <Link
+                key={item.label}
+                to={item.href}
+                role="menuitem"
+                onClick={() => setOpen(false)}
+                className="block px-5 py-3.5 border-b border-white/5 last:border-0 hover:bg-[#ff6b35]/10 transition-colors group"
+              >
+                <p className="text-sm font-semibold group-hover:text-[#ff6b35] transition-colors">{item.label}</p>
+                <p className="text-[11px] text-[#777] mt-0.5">{item.desc}</p>
+              </Link>
+            ))}
+            <Link
+              to="/dev4hire#dh-register"
+              role="menuitem"
+              onClick={() => setOpen(false)}
+              className="block px-5 py-4 bg-[#ff6b35] text-white text-sm font-bold text-center hover:bg-[#ff8a5b] transition-colors"
+            >
+              Join the Network
+            </Link>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Header({ menuOpen, setMenuOpen, scrolled }: HeaderProps) {
   return (
     <nav className={"fixed top-0 left-0 right-0 z-[70] transition-colors duration-500 " + (scrolled || menuOpen ? "bg-[#080808]/95 backdrop-blur-md border-b border-white/5" : "")}>
@@ -131,6 +246,7 @@ function Header({ menuOpen, setMenuOpen, scrolled }: HeaderProps) {
               {l.label}
             </NavLink>
           ))}
+          <Dev4HireDropdown />
         </div>
         <NavLink
           to="/contact"
