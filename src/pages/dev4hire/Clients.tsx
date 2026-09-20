@@ -1,6 +1,6 @@
 import { useSEO } from "../../hooks/useSEO";
 import { Link } from "react-router-dom";
-import { DevTabs, PageIntro } from "../../components/dev4hire/DevBits";
+import { PageIntro, SubPageHero } from "../../components/dev4hire/DevBits";
 import { CLIENT_POINTS, ACD_HANDLES } from "../../data/dev4hire";
 
 export default function ClientsPage() {
@@ -9,11 +9,13 @@ export default function ClientsPage() {
     <>
       <section className="py-16 sm:py-20 lg:py-28 px-5 sm:px-6 md:px-10 border-t border-white/5">
         <div className="max-w-7xl mx-auto">
-          <PageIntro
-            label="Dev4Hire · For Clients"
+          <SubPageHero
+            label="Dev4Hire - For Clients"
             title="Need"
             accent="tech talent?"
             copy="Tell Ayo Creative Designs what you're trying to build. We scope the project, source the right professionals and manage the engagement through delivery."
+            cta="Submit a Project"
+            ctaHref="/contact"
           />
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/5 border border-white/5">

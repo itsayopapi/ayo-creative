@@ -1,6 +1,6 @@
 import { useSEO } from "../../hooks/useSEO";
 import OppBoard from "../../components/dev4hire/OppBoard";
-import { DevTabs, PageIntro, DevCTA } from "../../components/dev4hire/DevBits";
+import { PageIntro, SubPageHero, DevCTA } from "../../components/dev4hire/DevBits";
 import { MATCH_SIGNALS } from "../../data/dev4hire";
 
 export default function OpportunitiesPage() {
@@ -9,11 +9,13 @@ export default function OpportunitiesPage() {
     <>
       <section className="py-16 sm:py-20 lg:py-28 px-5 sm:px-6 md:px-10 border-t border-white/5">
         <div className="max-w-7xl mx-auto">
-          <PageIntro
-            label="Dev4Hire · Opportunities"
+          <SubPageHero
+            label="Dev4Hire - Opportunities"
             title="Projects looking"
             accent="for talent."
-            copy="Explore the brief format below. When a live project matches your registered skills, you get contacted directly — no bidding wars."
+            copy="Explore the brief format below. When a live project matches your registered skills, you get contacted directly - no bidding wars."
+            cta="Register for Alerts"
+            ctaHref="/dev4hire/register"
           />
           <OppBoard />
 

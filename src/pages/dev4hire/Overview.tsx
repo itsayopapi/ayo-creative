@@ -1,7 +1,7 @@
 import { useSEO } from "../../hooks/useSEO";
 import { Link } from "react-router-dom";
 import FAQ from "../../components/FAQ";
-import { DevTabs, PageIntro, DevCTA } from "../../components/dev4hire/DevBits";
+import { PageIntro, DevCTA } from "../../components/dev4hire/DevBits";
 import { DEV_VALUES, TALENT_GROUPS, DEV_FAQS, SAMPLE_OPPORTUNITIES } from "../../data/dev4hire";
 
 const FLOW = ["Client brief", "Ayo Creative Designs", "Dev4Hire network", "You build", "Delivery", "You get paid"];
@@ -10,8 +10,8 @@ export default function Dev4HireHome() {
   useSEO("Dev4Hire — Your Skills. Our Projects. | Ayo Creative Designs", "Join the Dev4Hire talent network. Register once, get contacted when paid projects match your skills, and keep the agreed payout while the agency handles the client.", "/dev4hire");
   return (
     <>
-      {/* Hero — main-site style */}
-      <section className="relative min-h-[86vh] flex flex-col justify-end overflow-hidden">
+      {/* Hero - proper, main-site architecture */}
+      <section className="relative overflow-hidden border-b border-white/5">
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1800&h=1200&fit=crop&auto=format"
@@ -20,49 +20,42 @@ export default function Dev4HireHome() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/70 via-[#080808]/50 to-[#080808]" />
         </div>
-        <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-          <span className="font-display font-black text-[26vw] text-white/[0.025] leading-none tracking-tighter whitespace-nowrap">HIRE</span>
+        <div className="absolute inset-0 z-0 flex items-center justify-end pointer-events-none select-none overflow-hidden pr-2">
+          <span className="font-display font-black text-[20vw] md:text-[13vw] text-white/[0.025] leading-none tracking-tighter whitespace-nowrap">HIRE</span>
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto w-full px-5 sm:px-8 md:px-10 pb-14 md:pb-20 pt-28 md:pt-36 orange-radial">
-          <p className="text-[#ff6b35] text-glow-orange text-[10px] sm:text-xs font-semibold tracking-[0.25em] uppercase mb-6 flex items-center gap-3">
+        <div className="relative z-10 max-w-7xl mx-auto w-full px-5 sm:px-8 md:px-10 pt-24 sm:pt-28 md:pt-36 pb-12 sm:pb-16 orange-radial">
+          <p className="text-[#ff6b35] text-glow-orange text-[10px] sm:text-xs font-semibold tracking-[0.25em] uppercase mb-5 flex items-center gap-3">
             <span className="w-6 h-px bg-[#ff6b35]" />
             Dev4Hire — Ayo Creative Designs Talent Network
           </p>
-          <h1 className="font-display font-black leading-[0.9] tracking-tight mb-8" style={{ fontSize: "clamp(42px, 8vw, 104px)" }}>
+          <h1 className="font-display font-black leading-[0.95] tracking-tight mb-6" style={{ fontSize: "clamp(36px, 7vw, 84px)" }}>
             Your Skills.
             <br />
             <span className="text-[#ff6b35] text-glow-orange">Our Projects.</span>
           </h1>
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-            <p className="text-[#888880] text-sm sm:text-base leading-relaxed max-w-md">
-              Developers, designers, testers, cybersecurity specialists — register once. When a paid project from Ayo Creative Designs matches your skills, we contact you. You build, you get the agreed payout, we handle the client.
-            </p>
-            <div className="flex flex-wrap gap-3 flex-shrink-0">
-              <Link to="/dev4hire/register" className="btn-orange text-white text-sm font-semibold px-5 py-3 rounded-lg hover:bg-[#ff8a5b] orange-glow transition-colors whitespace-nowrap">
-                Join the Network
-              </Link>
-              <Link to="/dev4hire/opportunities" className="border border-white/20 text-[#f0ebe0] text-sm font-medium px-5 py-3 rounded-lg hover:border-white/40 transition-colors whitespace-nowrap">
-                See Opportunities
-              </Link>
-            </div>
+          <p className="text-[#888880] text-sm sm:text-base leading-relaxed max-w-xl mb-8">
+            Developers, designers, testers, cybersecurity specialists — register once. When a paid project from Ayo Creative Designs matches your skills, we contact you. You build, you get the agreed payout, we handle the client.
+          </p>
+          <div className="flex flex-wrap gap-3 mb-12 md:mb-16">
+            <Link to="/dev4hire/register" className="btn-orange text-white text-sm font-semibold px-7 py-3.5 rounded-lg min-h-[52px] inline-flex items-center orange-glow">
+              Join the Network
+            </Link>
+            <Link to="/dev4hire/opportunities" className="border border-white/20 text-[#f0ebe0] text-sm font-medium px-7 py-3.5 rounded-lg hover:border-white/40 transition-colors min-h-[52px] inline-flex items-center">
+              See Opportunities
+            </Link>
           </div>
-          <div className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5">
-            {[
-              { v: "Free", l: "To join, always" },
-              { v: "Paid", l: "Real client projects" },
-              { v: "Agreed", l: "Payout before you start" },
-              { v: "Remote", l: "Work from anywhere" },
-            ].map((s) => (
-              <div key={s.l} className="bg-[#080808] px-4 sm:px-6 py-5 sm:py-6 text-center">
-                <div className="font-display text-2xl sm:text-3xl font-black text-[#ff6b35] text-glow-orange">{s.v}</div>
-                <div className="text-[10px] sm:text-xs text-[#888880] mt-1 uppercase tracking-wider">{s.l}</div>
-              </div>
-            ))}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 border border-white/5">
+            {[["Free", "to join"], ["Paid", "project briefs"], ["Agreed", "payout upfront"], ["Remote", "work"]].map(function (s) {
+              return (
+                <div key={s[0]} className="bg-[#080808] px-4 py-4 sm:py-5">
+                  <div className="font-display text-lg sm:text-xl font-black text-[#f0ebe0]">{s[0]}</div>
+                  <div className="text-[#888880] text-[11px] sm:text-xs">{s[1]}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
-
-      <DevTabs active="/dev4hire" />
 
       {/* Flow strip */}
       <section className="py-14 sm:py-16 px-5 sm:px-6 md:px-10 border-t border-white/5">

@@ -1,6 +1,6 @@
 import { useSEO } from "../../hooks/useSEO";
 import { Link } from "react-router-dom";
-import { DevTabs, PageIntro, DevCTA } from "../../components/dev4hire/DevBits";
+import { PageIntro, SubPageHero, DevCTA } from "../../components/dev4hire/DevBits";
 import { DEV_STEPS, TRUST_CARDS } from "../../data/dev4hire";
 
 export default function HowItWorksPage() {
@@ -9,11 +9,13 @@ export default function HowItWorksPage() {
     <>
       <section className="py-16 sm:py-20 lg:py-28 px-5 sm:px-6 md:px-10 border-t border-white/5">
         <div className="max-w-7xl mx-auto">
-          <PageIntro
-            label="Dev4Hire · Process"
+          <SubPageHero
+            label="Dev4Hire - Process"
             title="Register. Match."
             accent="Build. Get paid."
             copy="Six steps from joining the network to receiving your payout."
+            cta="Start - Join the Network"
+            ctaHref="/dev4hire/register"
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 border border-white/5">
             {DEV_STEPS.map((s) => (

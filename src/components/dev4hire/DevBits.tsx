@@ -1,37 +1,4 @@
-import { NavLink, Link } from "react-router-dom";
-
-export const DEV_PAGES = [
-  { path: "/dev4hire", label: "Overview" },
-  { path: "/dev4hire/opportunities", label: "Opportunities" },
-  { path: "/dev4hire/how-it-works", label: "How It Works" },
-  { path: "/dev4hire/talent", label: "For Talent" },
-  { path: "/dev4hire/clients", label: "For Clients" },
-  { path: "/dev4hire/register", label: "Join" },
-];
-
-export function DevTabs({ active }: { active: string }) {
-  return (
-    <div className="border-t border-white/5 px-5 sm:px-6 md:px-10">
-      <div className="max-w-7xl mx-auto flex gap-1 overflow-x-auto no-scrollbar py-3">
-        {DEV_PAGES.map((p) => (
-          <NavLink
-            key={p.path}
-            to={p.path}
-            end={p.path === "/dev4hire"}
-            className={
-              "text-xs px-4 py-2.5 rounded-lg whitespace-nowrap min-h-[44px] flex items-center transition-colors " +
-              (active === p.path
-                ? "bg-[#ff6b35]/10 text-[#ff6b35] font-semibold"
-                : "text-[#888880] hover:text-[#f0ebe0] hover:bg-white/5")
-            }
-          >
-            {p.label}
-          </NavLink>
-        ))}
-      </div>
-    </div>
-  );
-}
+import { Link } from "react-router-dom";
 
 export function PageIntro({ label, title, accent, copy }: { label: string; title: string; accent?: string; copy: string }) {
   return (
@@ -52,6 +19,39 @@ export function PageIntro({ label, title, accent, copy }: { label: string; title
         </h1>
       </div>
       <p className="text-[#888880] max-w-xs leading-relaxed text-sm">{copy}</p>
+    </div>
+  );
+}
+
+export function SubPageHero({ label, title, accent, copy, cta, ctaHref }: { label: string; title: string; accent?: string; copy: string; cta?: string; ctaHref?: string }) {
+  return (
+    <div className="relative overflow-hidden border-b border-white/5">
+      <div className="absolute inset-0 pointer-events-none orange-radial opacity-70" />
+      <div className="absolute -top-24 right-[-10%] w-[480px] h-[480px] rounded-full bg-[#ff6b35]/[0.07] blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-end overflow-hidden pr-2">
+        <span className="font-display font-black text-[20vw] md:text-[13vw] text-white/[0.025] leading-none tracking-tighter whitespace-nowrap">HIRE</span>
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 md:px-10 pt-24 sm:pt-28 md:pt-36 pb-12 sm:pb-16">
+        <p className="text-[#ff6b35] text-glow-orange text-[10px] sm:text-xs font-semibold tracking-[0.25em] uppercase mb-5 flex items-center gap-3">
+          <span className="w-6 h-px bg-[#ff6b35]" />
+          {label}
+        </p>
+        <h1 className="font-display font-black leading-[0.95] tracking-tight mb-6" style={{ fontSize: "clamp(36px, 7vw, 84px)" }}>
+          {title}
+          {accent ? (
+            <>
+              <br />
+              <span className="text-[#ff6b35] text-glow-orange">{accent}</span>
+            </>
+          ) : null}
+        </h1>
+        <p className="text-[#888880] text-sm sm:text-base leading-relaxed max-w-xl mb-8">{copy}</p>
+        {cta && ctaHref ? (
+          <Link to={ctaHref} className="btn-orange text-white text-sm font-semibold px-7 py-3.5 rounded-lg min-h-[52px] inline-flex items-center orange-glow">
+            {cta}
+          </Link>
+        ) : null}
+      </div>
     </div>
   );
 }

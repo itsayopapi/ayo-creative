@@ -1,6 +1,6 @@
 import { useSEO } from "../../hooks/useSEO";
 import { Link } from "react-router-dom";
-import { DevTabs, PageIntro, DevCTA } from "../../components/dev4hire/DevBits";
+import { PageIntro, SubPageHero, DevCTA } from "../../components/dev4hire/DevBits";
 import { TALENT_BENEFITS } from "../../data/dev4hire";
 
 const GROWTH = [
@@ -15,11 +15,13 @@ export default function TalentPage() {
     <>
       <section className="py-16 sm:py-20 lg:py-28 px-5 sm:px-6 md:px-10 border-t border-white/5">
         <div className="max-w-7xl mx-auto">
-          <PageIntro
-            label="Dev4Hire · For Talent"
+          <SubPageHero
+            label="Dev4Hire - For Talent"
             title="You build."
             accent="We bring the work."
             copy="You shouldn't have to spend every day hunting clients. Register your skills once and we notify you when relevant paid projects land."
+            cta="Join the Network"
+            ctaHref="/dev4hire/register"
           />
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             <ul className="rounded-lg border border-white/10 bg-[#111] p-6 sm:p-8 space-y-3">
