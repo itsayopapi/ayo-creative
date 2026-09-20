@@ -1,17 +1,17 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CLIENT_POINTS, ACD_HANDLES } from "../../data/dev4hire";
 
 export function ForClients() {
   return (
-    <section id="dev4hire-clients" className="scroll-mt-32 py-14 sm:py-20 border-t border-white/5">
+    <section id="dh-for-clients" className="scroll-mt-32 py-14 sm:py-20 border-t border-white/5">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 items-center">
         <div>
           <p className="text-[#ff6b35] text-xs uppercase tracking-widest mb-3">For clients</p>
           <h2 className="font-display font-black leading-tight mb-4" style={{ fontSize: "clamp(30px,4.5vw,52px)" }}>Need tech talent?</h2>
           <p className="text-[#aaa] text-sm sm:text-base leading-relaxed mb-6">Tell Ayo Creative Designs what you are trying to build. We scope the project, source suitable professionals from our network and manage the engagement through delivery.</p>
           <div className="flex flex-col sm:flex-row gap-3 mb-6">
-            <a href="/contact" className="btn-orange text-white text-center text-sm font-bold px-7 py-4 min-h-[56px] flex items-center justify-center">Submit a project</a>
-            <a href="/contact" className="rounded-xl border border-white/20 text-center text-sm font-semibold px-7 py-4 hover:bg-white/5 min-h-[56px] flex items-center justify-center">Talk to Ayo Creative Designs</a>
+            <Link to="/contact" className="btn-orange text-white text-center text-sm font-bold px-7 py-4 min-h-[56px] flex items-center justify-center">Submit a project</Link>
+            <Link to="/contact" className="rounded-xl border border-white/20 text-center text-sm font-semibold px-7 py-4 hover:bg-white/5 min-h-[56px] flex items-center justify-center">Talk to Ayo Creative Designs</Link>
           </div>
           <p className="text-[11px] text-[#666]">Dev4Hire is backed by Ayo Creative Designs. The network supports delivery — clients stay with ACD.</p>
         </div>
@@ -127,8 +127,8 @@ export function FinalCTA() {
         <h2 className="font-display font-black leading-tight mb-4" style={{ fontSize: "clamp(30px,5vw,56px)" }}>Your next project<br />could be the one.</h2>
         <p className="text-[#aaa] max-w-xl mx-auto text-sm sm:text-base leading-relaxed mb-8">Join the Dev4Hire network and put your skills in front of real project opportunities sourced through Ayo Creative Designs.</p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="#dev4hire-register" className="btn-orange text-white text-center text-sm font-bold px-8 py-4 min-h-[60px] flex items-center justify-center">Join the network</a>
-          <a href="#dev4hire-opportunities" className="rounded-xl border border-white/20 text-center text-sm font-semibold px-8 py-4 hover:bg-white/5 min-h-[60px] flex items-center justify-center">Explore opportunities</a>
+          <a href="#dh-register" className="btn-orange text-white text-center text-sm font-bold px-8 py-4 min-h-[60px] flex items-center justify-center">Join the network</a>
+          <a href="#dh-opportunities" className="rounded-xl border border-white/20 text-center text-sm font-semibold px-8 py-4 hover:bg-white/5 min-h-[60px] flex items-center justify-center">Explore opportunities</a>
         </div>
       </div>
     </section>

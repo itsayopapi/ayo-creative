@@ -19,7 +19,7 @@ function OppCard({ o }: { o: (typeof SAMPLE_OPPORTUNITIES)[number] }) {
       {open && (
         <div className="mt-4 rounded-xl border border-white/10 bg-[#0d0d0d] p-4 text-xs text-[#aaa] leading-relaxed">
           <p className="mb-2">Example brief format. Real briefs include full description, requirements, deadline, payout and an express-interest form.</p>
-          <a href="#dev4hire-register" className="text-[#ff6b35] font-semibold">Register to get notified →</a>
+          <a href="#dh-register" className="text-[#ff6b35] font-semibold">Register to get notified →</a>
         </div>
       )}
     </article>
