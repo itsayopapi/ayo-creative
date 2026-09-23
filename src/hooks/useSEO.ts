@@ -23,7 +23,7 @@ export function useSEO(title: string, description: string, path = "") {
     upsertMeta("name", "description", description);
     upsertMeta("property", "og:title", fullTitle);
     upsertMeta("property", "og:description", description);
-    upsertMeta("property", "og:url", `https://ayocreativedesigns.com${path}`);
+    upsertMeta("property", "og:url", `https://www.ayocreativedesigns.com${path}`);
     upsertMeta("name", "twitter:title", fullTitle);
     upsertMeta("name", "twitter:description", description);
 
@@ -33,6 +33,6 @@ export function useSEO(title: string, description: string, path = "") {
       canonical.setAttribute("rel", "canonical");
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute("href", `https://ayocreativedesigns.com${path}`);
+    canonical.setAttribute("href", `https://www.ayocreativedesigns.com${path}`);
   }, [title, description, path]);
 }
