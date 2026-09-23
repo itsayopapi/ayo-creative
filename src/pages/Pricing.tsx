@@ -8,6 +8,8 @@ const FIXED_PACKAGES = [
     name: "Landing Page",
     priceMin: 300,
     priceMax: 600,
+    ngnMin: 150000,
+    ngnMax: 300000,
     tagline: "One focused page built to convert.",
     items: [
       "1 conversion-focused page",
@@ -23,6 +25,8 @@ const FIXED_PACKAGES = [
     name: "Portfolio Site",
     priceMin: 350,
     priceMax: 700,
+    ngnMin: 200000,
+    ngnMax: 400000,
     tagline: "Show your work like a professional.",
     items: [
       "Up to 4 pages",
@@ -39,6 +43,8 @@ const FIXED_PACKAGES = [
     name: "5-Page Business Website",
     priceMin: 600,
     priceMax: 1200,
+    ngnMin: 400000,
+    ngnMax: 800000,
     tagline: "A complete web presence for your business.",
     items: [
       "Up to 5 custom pages",
@@ -92,6 +98,10 @@ const FAQS = [
     q: "Can I see exactly what I'm paying for?",
     a: "Yes — every deliverable listed on each package is what you get. No vague line items. If something isn't listed, it isn't included, and we'll tell you the price before you commit.",
   },
+  {
+    q: "Why are the prices different in Nigeria?",
+    a: "We price regionally. Clients in Nigeria see local naira rates because that reflects what sustainable agency work costs here — international clients are billed at competitive global rates in their own currency. Your location is detected automatically, you always see the right price, and the final number is agreed in writing before work starts.",
+  },
 ];
 
 export default function PricingPage() {
@@ -100,20 +110,20 @@ export default function PricingPage() {
     "Fixed-price landing pages from $300, portfolio sites from $350 and 5-page business websites from $600. E-commerce and custom builds quoted from your brief. Hosting and domain never hidden in the price."
   );
 
-  const { convert, info } = useCurrency();
+  const { convert, info, loading } = useCurrency();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  const rawSym = String((info as any)?.symbol ?? (info as any)?.currency ?? "");
-  const currencySymbol = !rawSym
-    ? "$"
-    : /^[A-Z]{3}$/.test(rawSym)
-      ? rawSym + " "
-      : rawSym;
+  const isNigeria = info.code === "NGN";
+  const ngnFmt = new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    maximumFractionDigits: 0,
+  });
 
-  const fmt = (usd: number): string => {
-    const v = convert(usd);
-    if (typeof v === "string") return v;
-    return currencySymbol + Math.round(v).toLocaleString();
+  const fmt = (usd: number, ngn: number): string => {
+    if (loading) return "…";
+    if (isNigeria) return ngnFmt.format(ngn);
+    return convert(usd);
   };
 
   return (
@@ -201,14 +211,14 @@ export default function PricingPage() {
                       className="font-display font-black text-[#ff6b35] text-glow-orange"
                       style={{ fontSize: "clamp(1.5rem, 2.4vw, 2rem)" }}
                     >
-                      {fmt(p.priceMin)}
+                      {fmt(p.priceMin, p.ngnMin)}
                     </span>
                     <span className="text-lg leading-none text-white/35">–</span>
                     <span
                       className="font-display font-black text-[#ff6b35] text-glow-orange"
                       style={{ fontSize: "clamp(1.5rem, 2.4vw, 2rem)" }}
                     >
-                      {fmt(p.priceMax)}
+                      {fmt(p.priceMax, p.ngnMax)}
                     </span>
                   </div>
                   <p className="mt-1.5 text-xs text-white/45">
@@ -244,6 +254,13 @@ export default function PricingPage() {
             />
           </div>
 
+          {isNigeria && (
+            <p className="mt-5 text-xs font-medium leading-relaxed text-[#ff6b35]/85">
+              Nigerian rates shown for your location — international clients are
+              billed at global rates (landing pages from $300, business sites
+              from $600).
+            </p>
+          )}
           <p className="mt-5 text-xs leading-relaxed text-white/45">
             Hosting and domain are not included — they're registered in your
             name, at cost, so you keep full ownership.
