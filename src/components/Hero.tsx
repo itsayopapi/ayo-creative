@@ -8,7 +8,11 @@ export default function Hero() {
       <div className="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1722884263486-4824843769d6?w=1800&h=1200&fit=crop&auto=format"
+          srcSet="https://images.unsplash.com/photo-1722884263486-4824843769d6?w=640&h=427&fit=crop&auto=format 640w, https://images.unsplash.com/photo-1722884263486-4824843769d6?w=1200&h=800&fit=crop&auto=format 1200w, https://images.unsplash.com/photo-1722884263486-4824843769d6?w=1800&h=1200&fit=crop&auto=format 1800w"
+          sizes="100vw"
           alt="Design studio workspace"
+          fetchPriority="high"
+          decoding="async"
           className="w-full h-full object-cover opacity-15"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/70 via-[#080808]/50 to-[#080808]" />

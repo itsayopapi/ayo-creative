@@ -15,7 +15,11 @@ export default function Dev4HireHome() {
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1800&h=1200&fit=crop&auto=format"
+            srcSet="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=640&h=427&fit=crop&auto=format 640w, https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=800&fit=crop&auto=format 1200w, https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1800&h=1200&fit=crop&auto=format 1800w"
+            sizes="100vw"
             alt="Developers collaborating on a project"
+            fetchPriority="high"
+            decoding="async"
             className="w-full h-full object-cover opacity-15"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/70 via-[#080808]/50 to-[#080808]" />

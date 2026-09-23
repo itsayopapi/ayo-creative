@@ -62,8 +62,11 @@ export default function BrowserMockup({ industry }: { industry: IndustryPreview 
       <div className="relative overflow-hidden" style={{ minHeight: 240 }}>
         <img
           src={industry.img}
+          srcSet={`${industry.img.replace("w=900&h=560", "w=480&h=299")} 480w, ${industry.img} 900w`}
+          sizes="(max-width: 640px) 92vw, 600px"
           alt={industry.name}
           loading="lazy"
+          decoding="async"
           className="w-full h-52 sm:h-64 object-cover"
           style={{ opacity: 0.45 }}
         />
