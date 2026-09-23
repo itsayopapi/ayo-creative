@@ -1,7 +1,7 @@
 {
-  "description": "Transform agency websites into premium, income-generating platforms that enhance brand presence and attract clients effectively.",
+  "description": "Ayo Creative Designs is a web design and development agency building conversion-focused websites for businesses in Nigeria and worldwide — landing pages, portfolios, business sites, e-commerce and custom web apps.",
   "robots": {
-    "index": false
+    "index": true
   },
   "accessibility": {
     "addBypassLinks": false,
