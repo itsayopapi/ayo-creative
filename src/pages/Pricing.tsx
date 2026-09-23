@@ -6,8 +6,8 @@ import { useCurrency } from "../hooks/useCurrency";
 const FIXED_PACKAGES = [
   {
     name: "Landing Page",
-    priceMin: 100,
-    priceMax: 200,
+    priceMin: 300,
+    priceMax: 600,
     tagline: "One focused page built to convert.",
     items: [
       "1 conversion-focused page",
@@ -21,8 +21,8 @@ const FIXED_PACKAGES = [
   },
   {
     name: "Portfolio Site",
-    priceMin: 100,
-    priceMax: 200,
+    priceMin: 350,
+    priceMax: 700,
     tagline: "Show your work like a professional.",
     items: [
       "Up to 4 pages",
@@ -37,8 +37,8 @@ const FIXED_PACKAGES = [
   },
   {
     name: "5-Page Business Website",
-    priceMin: 300,
-    priceMax: 500,
+    priceMin: 600,
+    priceMax: 1200,
     tagline: "A complete web presence for your business.",
     items: [
       "Up to 5 custom pages",
@@ -97,7 +97,7 @@ const FAQS = [
 export default function PricingPage() {
   useSEO(
     "Transparent Website Pricing | Ayo Creative Designs",
-    "Fixed-price landing pages from $100, portfolio and 5-page business websites from $300. E-commerce and custom builds quoted from your brief. Hosting and domain never hidden in the price."
+    "Fixed-price landing pages from $300, portfolio sites from $350 and 5-page business websites from $600. E-commerce and custom builds quoted from your brief. Hosting and domain never hidden in the price."
   );
 
   const { convert, info } = useCurrency();
