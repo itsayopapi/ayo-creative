@@ -1,18 +1,21 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
-import ServicesPage from "./pages/Services";
-import PricingPage from "./pages/Pricing";
-import About from "./pages/About";
-import Process from "./pages/Process";
-import Showcase from "./pages/Showcase";
-import Contact from "./pages/Contact";
-import Dev4Hire from "./pages/dev4hire/Overview";
-import Dev4HireOpportunities from "./pages/dev4hire/Opportunities";
-import Dev4HireHow from "./pages/dev4hire/HowItWorks";
-import Dev4HireTalent from "./pages/dev4hire/Talent";
-import Dev4HireClients from "./pages/dev4hire/Clients";
-import Dev4HireJoin from "./pages/dev4hire/Join";
+
+// Route-level code splitting: only the current page's chunk loads on demand.
+const ServicesPage = lazy(() => import("./pages/Services"));
+const PricingPage = lazy(() => import("./pages/Pricing"));
+const About = lazy(() => import("./pages/About"));
+const Process = lazy(() => import("./pages/Process"));
+const Showcase = lazy(() => import("./pages/Showcase"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Dev4Hire = lazy(() => import("./pages/dev4hire/Overview"));
+const Dev4HireOpportunities = lazy(() => import("./pages/dev4hire/Opportunities"));
+const Dev4HireHow = lazy(() => import("./pages/dev4hire/HowItWorks"));
+const Dev4HireTalent = lazy(() => import("./pages/dev4hire/Talent"));
+const Dev4HireClients = lazy(() => import("./pages/dev4hire/Clients"));
+const Dev4HireJoin = lazy(() => import("./pages/dev4hire/Join"));
 
 // ─── APP ─────────────────────────────────────────────────────────────────────
 
@@ -20,7 +23,10 @@ export default function App() {
   return (
     <BrowserRouter>
       <Layout>
-        <Routes>
+        <Suspense
+          fallback={<div className="min-h-screen bg-[#080808]" aria-hidden="true" />}
+        >
+          <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/pricing" element={<PricingPage />} />
@@ -35,7 +41,8 @@ export default function App() {
           <Route path="/dev4hire/clients" element={<Dev4HireClients />} />
           <Route path="/dev4hire/register" element={<Dev4HireJoin />} />
           <Route path="*" element={<Home />} />
-        </Routes>
+          </Routes>
+        </Suspense>
       </Layout>
     </BrowserRouter>
   );
