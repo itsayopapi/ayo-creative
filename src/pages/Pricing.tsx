@@ -176,30 +176,45 @@ export default function PricingPage() {
                   p.featured ? "ring-1 ring-inset ring-[#ff6b35]/45" : ""
                 }`}
               >
-                {p.featured && (
-                  <span className="absolute right-5 top-5 rounded-full bg-[#ff6b35]/15 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#ff6b35]">
-                    Most chosen
-                  </span>
-                )}
-                <h3 className="font-display text-xl font-extrabold tracking-tight">
-                  {p.name}
-                </h3>
-                <p className="mt-1.5 text-sm text-white/55">{p.tagline}</p>
-
-                <div className="mt-6 flex items-baseline gap-2">
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="font-display text-xl font-extrabold tracking-tight">
+                    {p.name}
+                  </h3>
                   <span
-                    className="font-display font-black text-[#ff6b35] text-glow-orange"
-                    style={{ fontSize: "clamp(1.7rem, 3vw, 2.4rem)" }}
+                    className={`shrink-0 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-widest ${
+                      p.featured
+                        ? "bg-[#ff6b35]/15 text-[#ff6b35]"
+                        : "border border-white/15 text-white/50"
+                    }`}
                   >
-                    {fmt(p.priceMin)}–{fmt(p.priceMax)}
-                  </span>
-                  <span className="text-xs uppercase tracking-widest text-white/40">
-                    fixed
+                    {p.featured ? "Most chosen" : "Fixed"}
                   </span>
                 </div>
-                <p className="mt-1 text-xs text-white/45">
-                  Typical delivery: {p.turnaround}
-                </p>
+                <p className="mt-1.5 text-sm text-white/55">{p.tagline}</p>
+
+                <div className="mt-5">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/40">
+                    Fixed price
+                  </p>
+                  <div className="mt-1.5 flex flex-wrap items-baseline gap-x-2">
+                    <span
+                      className="font-display font-black text-[#ff6b35] text-glow-orange"
+                      style={{ fontSize: "clamp(1.5rem, 2.4vw, 2rem)" }}
+                    >
+                      {fmt(p.priceMin)}
+                    </span>
+                    <span className="text-lg leading-none text-white/35">–</span>
+                    <span
+                      className="font-display font-black text-[#ff6b35] text-glow-orange"
+                      style={{ fontSize: "clamp(1.5rem, 2.4vw, 2rem)" }}
+                    >
+                      {fmt(p.priceMax)}
+                    </span>
+                  </div>
+                  <p className="mt-1.5 text-xs text-white/45">
+                    Typical delivery: {p.turnaround}
+                  </p>
+                </div>
 
                 <ul className="mt-6 flex-1 space-y-2.5 border-t border-white/10 pt-6">
                   {p.items.map((it) => (
@@ -222,6 +237,11 @@ export default function PricingPage() {
                 </Link>
               </div>
             ))}
+            {/* fills the empty 2-col cell on tablet widths so the hairline grid stays clean */}
+            <div
+              aria-hidden="true"
+              className="hidden bg-[#0b0b0b] sm:block lg:hidden"
+            />
           </div>
 
           <p className="mt-5 text-xs leading-relaxed text-white/45">
