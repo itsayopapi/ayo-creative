@@ -9,7 +9,13 @@ export type AppTier = {
   min: number; max: number | null;
   tagline: string; specs: string[]; signals: string[];
 };
-export type AddOn = { name: string; price: string; desc: string };
+export type AddOn = { name: string; min: number; max: number; per: string; desc: string };
+// Reference rate used only to derive display equivalents for visitors
+// outside Nigeria. NGN remains the single source of truth.
+export const NGN_PER_USD = 1500;
+export function ngnToUsd(ngn: number): number {
+  return Math.max(5, Math.round(ngn / NGN_PER_USD / 5) * 5);
+}
 export const WEBSITE_TIERS: WebsiteTier[] = [
   { slug: "landing", name: "Landing Page / One-Pager",
     audience: "Product launches, events, single portfolios",
@@ -65,10 +71,10 @@ export const APP_TIERS: AppTier[] = [
     signals: ["Must be in App Store + Play Store", "Needs push or hardware", "Customers are mostly on phones"] },
 ];
 export const ADD_ONS_NG: AddOn[] = [
-  { name: "Extra static pages", price: "NGN 15,000 / page", desc: "For scaling existing sites without a rebuild." },
-  { name: "Custom API integrations", price: "NGN 80,000 - NGN 150,000", desc: "Sync external CRMs, inventory systems, or global shipping software." },
-  { name: "Copywriting and content", price: "NGN 30,000 - NGN 60,000", desc: "SEO-optimized text that actually sells." },
-  { name: "Monthly agency retainer", price: "NGN 25,000 - NGN 75,000 / mo", desc: "Small updates, security checks and hosting oversight." },
+  { name: "Extra static pages", min: 15000, max: 15000, per: " / page", desc: "For scaling existing sites without a rebuild." },
+  { name: "Custom API integrations", min: 80000, max: 150000, per: "", desc: "Sync external CRMs, inventory systems, or global shipping software." },
+  { name: "Copywriting and content", min: 30000, max: 60000, per: "", desc: "SEO-optimized text that actually sells." },
+  { name: "Monthly agency retainer", min: 25000, max: 75000, per: " / mo", desc: "Small updates, security checks and hosting oversight." },
 ];
 export function formatNGN(value: number): string {
   return new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", maximumFractionDigits: 0 }).format(value);

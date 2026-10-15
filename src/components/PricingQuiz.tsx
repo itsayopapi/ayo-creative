@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { QUIZ_STEPS, recommendTier, type QuizAnswers } from "../data/quiz-logic";
-import { WEBSITE_TIERS, APP_TIERS, priceRange } from "../data/nigeria-pricing";
+import { WEBSITE_TIERS, APP_TIERS } from "../data/nigeria-pricing";
+import { useLocalPrice } from "../hooks/useLocalPrice";
 
 export default function PricingQuiz() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [done, setDone] = useState(false);
+  const { price } = useLocalPrice();
 
   const current = QUIZ_STEPS[step];
   const total = QUIZ_STEPS.length;
@@ -52,7 +54,7 @@ export default function PricingQuiz() {
         <h3 className="font-display mt-2 text-xl font-black leading-tight sm:mt-3 sm:text-3xl">{tier.name}</h3>
         <p className="mt-2 text-sm text-white/60">{tier.tagline}</p>
         <p className="font-display mt-4 break-words text-[1.7rem] font-black leading-tight text-[#ff6b35] text-glow-orange sm:text-3xl">
-          {priceRange(tier.min, tier.max)}
+          {price(tier.min, tier.max)}
         </p>
         <ul className="mt-4 space-y-2 sm:mt-5">
           {rec.why.map((w) => (

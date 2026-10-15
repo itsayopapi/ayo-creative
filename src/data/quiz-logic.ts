@@ -20,9 +20,9 @@ export const QUIZ_STEPS = [
     options: ["Yes — accounts, roles or dashboards", "No logins needed"] },
   { key: "storeApps", q: "Must it live in the App Store + Play Store?",
     options: ["Yes — real mobile apps", "No — website / web app is fine"] },
-  { key: "budget", q: "Which budget band fits you?",
-    options: ["NGN 80k-150k", "NGN 180k-400k", "NGN 350k-750k",
-      "NGN 500k-1.2M+", "NGN 800k-1.8M", "NGN 2M-5M+", "NGN 3.5M-8M+", "Advise me"] },
+  { key: "budget", q: "Which budget band fits you? (shown in your currency)",
+    options: ["Landing range", "Corporate range", "CMS range",
+      "E-commerce range", "MVP app range", "Custom web app range", "Mobile app range", "Advise me"] },
   { key: "timeline", q: "When must it launch?",
     options: ["ASAP (rush)", "2-4 weeks", "1-2 months", "Flexible"] },
 ];
@@ -38,22 +38,22 @@ export function recommendTier(a: QuizAnswers): { tier: string; why: string[] } {
   }
   if (a.logins?.startsWith("Yes")) {
     if (a.projectType === "Mobile app (iOS + Android)") return { tier: "cross-platform", why: [...why, "Logins inside native apps."] };
-    const simple = a.budget === "NGN 800k-1.8M";
+    const simple = a.budget === "MVP app range";
     why.push(simple ? "Simple logins + few screens = MVP first." : "Roles, dashboards or APIs = custom build.");
     return { tier: simple ? "mvp" : "custom-web", why };
   }
   if (a.projectType === "Mobile app (iOS + Android)") return { tier: "cross-platform", why: ["Native mobile requirement."] };
   if (a.projectType === "Web app / SaaS / portal") {
     why.push("Portal / SaaS scope.");
-    return { tier: a.budget === "NGN 800k-1.8M" ? "mvp" : "custom-web", why };
+    return { tier: a.budget === "MVP app range" ? "mvp" : "custom-web", why };
   }
   if (a.editSelf?.startsWith("Yes") || a.projectType === "Blog / content / news site")
     return { tier: "cms", why: ["You publish often and need an admin panel."] };
   if (a.projectType === "Corporate / business site (5-15 pages)") return { tier: "corporate", why: ["Multi-page static scope."] };
   if (a.projectType === "Landing / one-pager") return { tier: "landing", why: ["Single page, lead goal."] };
-  if (a.budget === "NGN 80k-150k") return { tier: "landing", why: ["Budget matches landing band."] };
-  if (a.budget === "NGN 180k-400k") return { tier: "corporate", why: ["Budget matches corporate band."] };
-  if (a.budget === "NGN 350k-750k") return { tier: "cms", why: ["Budget matches CMS band."] };
-  if (a.budget === "NGN 500k-1.2M+") return { tier: "ecommerce", why: ["Budget matches storefront band."] };
+  if (a.budget === "Landing range") return { tier: "landing", why: ["Budget matches landing band."] };
+  if (a.budget === "Corporate range") return { tier: "corporate", why: ["Budget matches corporate band."] };
+  if (a.budget === "CMS range") return { tier: "cms", why: ["Budget matches CMS band."] };
+  if (a.budget === "E-commerce range") return { tier: "ecommerce", why: ["Budget matches storefront band."] };
   return { tier: "corporate", why: ["Default: tell us more on the call and we will re-scope in writing."] };
 }

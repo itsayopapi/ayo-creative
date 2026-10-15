@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import INDUSTRIES from "../data/industries";
 import FAQ from "../components/FAQ";
 import { PRICING_FAQS } from "../data/content";
+import { WEBSITE_TIERS, APP_TIERS } from "../data/nigeria-pricing";
+import { useLocalPrice } from "../hooks/useLocalPrice";
 
 const NEXT_STEPS = [
   { step: "01", title: "We review your brief", desc: "Within 24 hours you get a personal reply — not an autoresponder." },
@@ -22,17 +24,6 @@ type FormData = {
   message: string;
 };
 
-const BUDGET_OPTIONS = [
-  "NGN 80k-150k (Landing)",
-  "NGN 180k-400k (Corporate)",
-  "NGN 350k-750k (CMS)",
-  "NGN 500k-1.2M+ (E-commerce)",
-  "NGN 800k-1.8M (MVP app)",
-  "NGN 2M-5M+ (Custom web app)",
-  "NGN 3.5M-8M+ (Mobile app)",
-  "Not sure — advise me",
-];
-
 const FORM_ENDPOINT = "https://formsubmit.co/ajax/5428e0cf9a61b9e7c1bf1cd93b3ce266";
 
 type Status = "idle" | "sending" | "success" | "error";
@@ -43,6 +34,7 @@ export default function Contact() {
     "Tell us about your project and get a reply within 24 hours. Free 30-minute discovery call, fixed-price proposal, no obligation. Working worldwide.",
     "/contact"
   );
+  const { price } = useLocalPrice();
   const [form, setForm] = useState<FormData>({ name: "", email: "", phone: "", industry: "", budget: "", message: "" });
   const [status, setStatus] = useState<Status>("idle");
 
@@ -176,7 +168,10 @@ export default function Contact() {
                       <label htmlFor="budget" className="text-xs text-[#888880] uppercase tracking-wider">Budget Range</label>
                       <select id="budget" name="budget" value={form.budget} onChange={(e) => setForm({ ...form, budget: e.target.value })} className="w-full bg-[#0d0d0d] border border-white/10 text-[#f0ebe0] text-base sm:text-sm px-4 py-3.5 rounded-lg focus:outline-none focus:border-[#ff6b35] transition-colors duration-200 min-h-[52px] sm:min-h-[48px]">
                         <option value="">Select…</option>
-                        {BUDGET_OPTIONS.map((b) => <option key={b} value={b}>{b}</option>)}
+                        {[...WEBSITE_TIERS, ...APP_TIERS].map((t) => (
+                          <option key={t.slug} value={t.slug}>{t.name} — {price(t.min, t.max)}</option>
+                        ))}
+                        <option value="advise-me">Not sure — advise me</option>
                       </select>
                     </div>
                   </div>

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSEO } from "../hooks/useSEO";
+import { useLocalPrice } from "../hooks/useLocalPrice";
 import PricingQuizModal from "../components/PricingQuizModal";
-import { WEBSITE_TIERS, APP_TIERS, ADD_ONS_NG, priceRange } from "../data/nigeria-pricing";
+import { WEBSITE_TIERS, APP_TIERS, ADD_ONS_NG } from "../data/nigeria-pricing";
 
 const FAQS = [
   {
@@ -11,7 +12,7 @@ const FAQS = [
   },
   {
     q: "What if my needs sit between two tiers?",
-    a: "That is what the add-ons are for: extra pages at NGN 15,000 each, API integrations at NGN 80,000-150,000, or copywriting at NGN 30,000-60,000. If the scope has truly outgrown the tier, we re-scope in writing before building.",
+    a: "That is what the add-ons are for — extra pages, API integrations, or copywriting at the listed add-on rates. If the scope has truly outgrown the tier, we re-scope in writing before building.",
   },
   {
     q: "What's the payment schedule?",
@@ -30,19 +31,20 @@ const FAQS = [
     a: "Yes — every deliverable listed on each package is what you get. No vague line items. If something isn't listed, it isn't included, and we'll tell you the price before you commit.",
   },
   {
-    q: "Why are the prices different in Nigeria?",
-    a: "We price regionally. Clients in Nigeria see local naira rates because that reflects what sustainable agency work costs here — international clients are billed at competitive global rates in their own currency. Your location is detected automatically, you always see the right price, and the final number is agreed in writing before work starts.",
+    q: "How do prices work for international clients?",
+    a: "Prices on this page detect your location and display in your local currency — naira in Nigeria, and converted equivalents abroad. The final number is always agreed in writing before work starts, so there are no surprises.",
   },
 ];
 
 export default function PricingPage() {
   useSEO(
-    "Nigeria Website & App Pricing in Naira | Ayo Creative Designs",
-    "Landing pages NGN 80k-150k, corporate sites NGN 180k-400k, CMS NGN 350k-750k, e-commerce NGN 500k-1.2M+. MVP apps, custom web apps and mobile apps priced by architecture. Take the 30-second quiz to find your tier."
+    "Website & App Pricing — Clear Rates Worldwide | Ayo Creative Designs",
+    "Clear fixed pricing for websites and apps — landing pages, business sites, CMS, e-commerce, MVPs and mobile apps. Prices shown in your local currency. Take the 30-second quiz to find your tier."
   );
 
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [quizOpen, setQuizOpen] = useState(false);
+  const { price, isNGN, code } = useLocalPrice();
 
   return (
     <>
@@ -63,9 +65,10 @@ export default function PricingPage() {
             <span className="text-[#ff6b35] text-glow-orange">NO SURPRISES.</span>
           </h1>
           <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-white/65 sm:mt-6 sm:text-lg">
-            Standard Nigeria market rates in Naira — websites by complexity, apps by
-            architecture, add-ons by fixed price. Not sure where you fit? Take the
-            30-second check below.
+            Websites priced by complexity, apps by architecture, add-ons at fixed
+            rates — shown in your currency
+            {!isNGN && code !== "USD" ? ` (${code})` : ""}. Not sure where you
+            fit? Take the 30-second check below.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
             <button
@@ -94,7 +97,7 @@ export default function PricingPage() {
             Websites, priced by complexity.
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/60 sm:mt-4 sm:text-base">
-            Standard local market rates in Nigeria. Find your row, check the deliverables,
+            Find your row, check the deliverables,
             and you already know your band before the call.
           </p>
 
@@ -104,7 +107,7 @@ export default function PricingPage() {
                 <p className="text-[10px] font-bold uppercase leading-relaxed tracking-[0.22em] text-white/45 sm:text-[11px]">{t.audience}</p>
                 <h3 className="font-display mt-2 text-lg font-extrabold tracking-tight sm:text-xl">{t.name}</h3>
                 <p className="mt-1.5 text-sm text-white/55">{t.tagline}</p>
-                <p className="font-display mt-4 break-words text-[1.65rem] font-black leading-tight text-[#ff6b35] text-glow-orange sm:text-3xl">{priceRange(t.min, t.max)}</p>
+                <p className="font-display mt-4 break-words text-[1.65rem] font-black leading-tight text-[#ff6b35] text-glow-orange sm:text-3xl">{price(t.min, t.max)}</p>
 
                 <ul className="mt-5 flex-1 space-y-2.5 border-t border-white/10 pt-5 sm:mt-6 sm:pt-6">
                   {t.deliverables.map((it) => (
@@ -152,7 +155,7 @@ export default function PricingPage() {
                 <p className="text-[10px] font-bold uppercase leading-relaxed tracking-[0.22em] text-[#ff6b35] sm:text-[11px]">{t.architecture}</p>
                 <h3 className="font-display mt-2 text-lg font-extrabold tracking-tight sm:text-xl">{t.name}</h3>
                 <p className="mt-1.5 text-sm text-white/55">{t.tagline}</p>
-                <p className="font-display mt-4 break-words text-[1.65rem] font-black leading-tight text-[#ff6b35] sm:text-2xl">{priceRange(t.min, t.max)}</p>
+                <p className="font-display mt-4 break-words text-[1.65rem] font-black leading-tight text-[#ff6b35] sm:text-2xl">{price(t.min, t.max)}</p>
                 <ul className="mt-5 flex-1 space-y-2.5 border-t border-white/10 pt-5">
                   {t.specs.map((s) => (
                     <li key={s} className="flex gap-2.5 text-[13px] leading-relaxed text-white/70 sm:text-sm">
@@ -173,7 +176,7 @@ export default function PricingPage() {
             {ADD_ONS_NG.map((a) => (
               <div key={a.name} className="rounded-2xl border border-white/10 bg-[#0b0b0b] p-5 sm:p-6">
                 <p className="text-sm font-bold leading-snug">{a.name}</p>
-                <p className="font-display mt-2 break-words text-base font-black leading-tight text-[#ff6b35] sm:text-lg">{a.price}</p>
+                <p className="font-display mt-2 break-words text-base font-black leading-tight text-[#ff6b35] sm:text-lg">{price(a.min, a.max)}{a.per}</p>
                 <p className="mt-2 text-xs leading-relaxed text-white/55">{a.desc}</p>
               </div>
             ))}
