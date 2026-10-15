@@ -1,90 +1,21 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSEO } from "../hooks/useSEO";
-import { useCurrency } from "../hooks/useCurrency";
-
-const FIXED_PACKAGES = [
-  {
-    name: "Landing Page",
-    priceMin: 300,
-    priceMax: 600,
-    ngnMin: 150000,
-    ngnMax: 300000,
-    tagline: "One focused page built to convert.",
-    items: [
-      "1 conversion-focused page",
-      "Mobile-first responsive build",
-      "Copy structuring guidance",
-      "Contact / lead form",
-      "Basic on-page SEO",
-      "2 revision rounds",
-    ],
-    turnaround: "5–10 days",
-  },
-  {
-    name: "Portfolio Site",
-    priceMin: 350,
-    priceMax: 700,
-    ngnMin: 200000,
-    ngnMax: 400000,
-    tagline: "Show your work like a professional.",
-    items: [
-      "Up to 4 pages",
-      "Project / work showcase layouts",
-      "Mobile-first responsive build",
-      "Contact form",
-      "Basic on-page SEO",
-      "2 revision rounds",
-    ],
-    turnaround: "1–2 weeks",
-    featured: true,
-  },
-  {
-    name: "5-Page Business Website",
-    priceMin: 600,
-    priceMax: 1200,
-    ngnMin: 400000,
-    ngnMax: 800000,
-    tagline: "A complete web presence for your business.",
-    items: [
-      "Up to 5 custom pages",
-      "Services, about & contact layouts",
-      "Mobile-first responsive build",
-      "Lead capture form",
-      "Basic on-page SEO setup",
-      "2 revision rounds",
-    ],
-    turnaround: "2–3 weeks",
-  },
-];
-
-const BRIEF_SERVICES = [
-  {
-    name: "E-commerce Stores",
-    desc: "Product catalogs, carts, checkout, payments and order flows scoped to what you actually need — no bloated feature lists.",
-  },
-  {
-    name: "Company & Corporate Sites",
-    desc: "Larger multi-section sites with custom layouts, CMS needs or multiple stakeholders involved in approval.",
-  },
-  {
-    name: "Custom Builds & Backend Work",
-    desc: "Web apps, dashboards, API integrations and anything technical where the scope can't be guessed from a template.",
-  },
-];
+import PricingQuizModal from "../components/PricingQuizModal";
+import { WEBSITE_TIERS, APP_TIERS, ADD_ONS_NG, priceRange } from "../data/nigeria-pricing";
 
 const FAQS = [
   {
     q: "Does the price include hosting and domain?",
-    a: "No. Hosting and domain are billed separately and registered in your own name — you always own your accounts. We help you set them up at cost during the project so there are no surprises, and ongoing hosting is typically $5–25/month depending on traffic.",
+    a: "No. Hosting and domain are registered in your own name and paid at cost — you keep full ownership. Build prices cover design, development, and launch only.",
   },
   {
-    q: "How does pricing work for complex projects like e-commerce?",
-    a: "You send us your brief, we scope it, and you get a written fixed quote before any work starts. Complex projects are quoted individually because a 10-product store and a 2,000-product store are not the same job. The quote is agreed up front — no moving targets.",
+    q: "What if my needs sit between two tiers?",
+    a: "That is what the add-ons are for: extra pages at NGN 15,000 each, API integrations at NGN 80,000-150,000, or copywriting at NGN 30,000-60,000. If the scope has truly outgrown the tier, we re-scope in writing before building.",
   },
   {
     q: "What's the payment schedule?",
-    a: "50% to reserve your slot and start, 50% on delivery before handover. For larger quoted projects we split payments across agreed milestones so you're never paying far ahead of progress.",
+    a: "50% to reserve your slot and start, 50% on delivery before handover. Larger app builds split across agreed milestones.",
   },
   {
     q: "Are these prices negotiable?",
@@ -106,241 +37,153 @@ const FAQS = [
 
 export default function PricingPage() {
   useSEO(
-    "Transparent Website Pricing | Ayo Creative Designs",
-    "Fixed-price landing pages from $300, portfolio sites from $350 and 5-page business websites from $600. E-commerce and custom builds quoted from your brief. Hosting and domain never hidden in the price."
+    "Nigeria Website & App Pricing in Naira | Ayo Creative Designs",
+    "Landing pages NGN 80k-150k, corporate sites NGN 180k-400k, CMS NGN 350k-750k, e-commerce NGN 500k-1.2M+. MVP apps, custom web apps and mobile apps priced by architecture. Take the 30-second quiz to find your tier."
   );
 
-  const { convert, info, loading } = useCurrency();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-
-  const isNigeria = info.code === "NGN";
-  const ngnFmt = new Intl.NumberFormat("en-NG", {
-    style: "currency",
-    currency: "NGN",
-    maximumFractionDigits: 0,
-  });
-
-  const fmt = (usd: number, ngn: number): string => {
-    if (loading) return "…";
-    if (isNigeria) return ngnFmt.format(ngn);
-    return convert(usd);
-  };
+  const [quizOpen, setQuizOpen] = useState(false);
 
   return (
+    <>
     <main className="bg-[#080808] text-[#f4f1ea]">
       {/* HERO */}
-      <section className="relative overflow-hidden border-b border-white/10 px-6 pt-28 pb-16 sm:pt-36 sm:pb-20">
+      <section className="relative overflow-hidden border-b border-white/10 px-5 pt-24 pb-12 sm:px-6 sm:pt-36 sm:pb-20">
         <div className="pointer-events-none absolute -top-40 right-[-10%] h-[480px] w-[480px] rounded-full bg-[#ff6b35]/10 blur-[130px]" />
         <div className="mx-auto max-w-6xl">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] text-[#ff6b35]">
+          <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#ff6b35] sm:mb-5 sm:text-xs">
             — Pricing
           </p>
           <h1
             className="font-display font-black leading-[1.02] tracking-tight"
-            style={{ fontSize: "clamp(2.4rem, 6vw, 4.5rem)" }}
+            style={{ fontSize: "clamp(2rem, 9vw, 4.5rem)" }}
           >
             CLEAR PRICES.
             <br />
             <span className="text-[#ff6b35] text-glow-orange">NO SURPRISES.</span>
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg">
-            Fixed prices for defined scopes. For e-commerce, corporate sites and
-            custom technical work, send a brief and get a written quote. Hosting
-            and domain are never baked into the number to hide a margin.
+          <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-white/65 sm:mt-6 sm:text-lg">
+            Standard Nigeria market rates in Naira — websites by complexity, apps by
+            architecture, add-ons by fixed price. Not sure where you fit? Take the
+            30-second check below.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
+            <button
+              onClick={() => setQuizOpen(true)}
+              className="btn-orange inline-flex w-full items-center justify-center rounded-xl px-7 py-4 text-sm font-semibold sm:w-auto sm:py-3.5"
+            >
+              Not sure? Find my tier — 30 secs
+            </button>
             <a
-              href="#fixed-prices"
-              className="btn-orange inline-flex items-center justify-center rounded-xl px-7 py-3.5 text-sm font-semibold"
+              href="#websites"
+              className="inline-flex w-full items-center justify-center rounded-xl border border-white/15 px-7 py-4 text-sm font-semibold text-white/85 transition hover:border-[#ff6b35]/60 hover:text-white sm:w-auto sm:py-3.5"
             >
-              See fixed prices
+              Browse tiers ↓
             </a>
-            <Link
-              to="/contact"
-              className="inline-flex items-center justify-center rounded-xl border border-white/15 px-7 py-3.5 text-sm font-semibold text-white/85 transition hover:border-[#ff6b35]/60 hover:text-white"
-            >
-              Send a brief →
-            </Link>
           </div>
         </div>
       </section>
 
-      {/* FIXED PACKAGES */}
-      <section id="fixed-prices" className="px-6 py-16 sm:py-24">
+      {/* WEBSITE TIERS */}
+      <section id="websites" className="scroll-mt-20 px-5 py-12 sm:px-6 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-white/45">
-            — Fixed-price projects
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-white/45 sm:mb-4 sm:text-xs">
+            — Website development tiers
           </p>
-          <h2
-            className="font-display font-black leading-[1.05] tracking-tight"
-            style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
-          >
-            Know the number before we start.
+          <h2 className="font-display font-black leading-[1.05] tracking-tight" style={{ fontSize: "clamp(1.6rem, 7vw, 3rem)" }}>
+            Websites, priced by complexity.
           </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/60 sm:mt-4 sm:text-base">
+            Standard local market rates in Nigeria. Find your row, check the deliverables,
+            and you already know your band before the call.
+          </p>
 
-          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
-            {FIXED_PACKAGES.map((p) => (
-              <div
-                key={p.name}
-                className={`group relative flex flex-col bg-[#0b0b0b] p-7 transition-colors hover:bg-[#111] sm:p-8 ${
-                  p.featured ? "ring-1 ring-inset ring-[#ff6b35]/45" : ""
-                }`}
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-display text-xl font-extrabold tracking-tight">
-                    {p.name}
-                  </h3>
-                  <span
-                    className={`shrink-0 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-widest ${
-                      p.featured
-                        ? "bg-[#ff6b35]/15 text-[#ff6b35]"
-                        : "border border-white/15 text-white/50"
-                    }`}
-                  >
-                    {p.featured ? "Most chosen" : "Fixed"}
-                  </span>
-                </div>
-                <p className="mt-1.5 text-sm text-white/55">{p.tagline}</p>
+          <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2">
+            {WEBSITE_TIERS.map((t) => (
+              <div key={t.slug} className="flex flex-col rounded-2xl border border-white/10 bg-[#0b0b0b] p-5 transition hover:border-[#ff6b35]/40 sm:p-8">
+                <p className="text-[10px] font-bold uppercase leading-relaxed tracking-[0.22em] text-white/45 sm:text-[11px]">{t.audience}</p>
+                <h3 className="font-display mt-2 text-lg font-extrabold tracking-tight sm:text-xl">{t.name}</h3>
+                <p className="mt-1.5 text-sm text-white/55">{t.tagline}</p>
+                <p className="font-display mt-4 break-words text-[1.65rem] font-black leading-tight text-[#ff6b35] text-glow-orange sm:text-3xl">{priceRange(t.min, t.max)}</p>
 
-                <div className="mt-5">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/40">
-                    Fixed price
-                  </p>
-                  <div className="mt-1.5 flex flex-wrap items-baseline gap-x-2">
-                    <span
-                      className="font-display font-black text-[#ff6b35] text-glow-orange"
-                      style={{ fontSize: "clamp(1.5rem, 2.4vw, 2rem)" }}
-                    >
-                      {fmt(p.priceMin, p.ngnMin)}
-                    </span>
-                    <span className="text-lg leading-none text-white/35">–</span>
-                    <span
-                      className="font-display font-black text-[#ff6b35] text-glow-orange"
-                      style={{ fontSize: "clamp(1.5rem, 2.4vw, 2rem)" }}
-                    >
-                      {fmt(p.priceMax, p.ngnMax)}
-                    </span>
-                  </div>
-                  <p className="mt-1.5 text-xs text-white/45">
-                    Typical delivery: {p.turnaround}
-                  </p>
-                </div>
-
-                <ul className="mt-6 flex-1 space-y-2.5 border-t border-white/10 pt-6">
-                  {p.items.map((it) => (
-                    <li key={it} className="flex gap-2.5 text-sm text-white/70">
-                      <span className="mt-0.5 font-bold text-[#ff6b35]">✓</span>
-                      <span>{it}</span>
+                <ul className="mt-5 flex-1 space-y-2.5 border-t border-white/10 pt-5 sm:mt-6 sm:pt-6">
+                  {t.deliverables.map((it) => (
+                    <li key={it} className="flex gap-2.5 text-[13px] leading-relaxed text-white/70 sm:text-sm">
+                      <span className="mt-0.5 shrink-0 font-bold text-[#ff6b35]">✓</span>
+                      <span className="min-w-0">{it}</span>
                     </li>
                   ))}
                 </ul>
-
+                <p className="mt-4 break-words text-xs italic leading-relaxed text-white/45 sm:mt-5">
+                  Fits you if: {t.signals.join("  •  ")}
+                </p>
                 <Link
                   to="/contact"
-                  className={`mt-7 inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold transition ${
-                    p.featured
-                      ? "btn-orange"
-                      : "border border-white/15 text-white/85 hover:border-[#ff6b35]/60 hover:text-white"
-                  }`}
+                  className="btn-orange mt-5 inline-flex min-h-[52px] w-full items-center justify-center rounded-xl px-6 py-3.5 text-sm font-semibold sm:mt-6 sm:w-auto"
                 >
                   Start this project →
                 </Link>
               </div>
             ))}
-            {/* fills the empty 2-col cell on tablet widths so the hairline grid stays clean */}
-            <div
-              aria-hidden="true"
-              className="hidden bg-[#0b0b0b] sm:block lg:hidden"
-            />
           </div>
-
-          {isNigeria && (
-            <p className="mt-5 text-xs font-medium leading-relaxed text-[#ff6b35]/85">
-              Nigerian rates shown for your location — international clients are
-              billed at global rates (landing pages from $300, business sites
-              from $600).
-            </p>
-          )}
           <p className="mt-5 text-xs leading-relaxed text-white/45">
-            Hosting and domain are not included — they're registered in your
-            name, at cost, so you keep full ownership.
+            Hosting and domain are not included — registered in your name, at cost, so you keep full ownership.
           </p>
         </div>
       </section>
 
-      {/* BRIEF-BASED (COMPLEX) */}
-      <section className="border-y border-white/10 bg-[#0a0a0a] px-6 py-16 sm:py-24">
+      {/* APP TIERS + ADDONS + QUESTIONNAIRE */}
+      <section className="border-y border-white/10 bg-[#0a0a0a] px-5 py-12 sm:px-6 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-white/45">
-            — Complex projects
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-white/45 sm:mb-4 sm:text-xs">
+            — Mobile and web application tiers
           </p>
-          <h2
-            className="font-display font-black leading-[1.05] tracking-tight"
-            style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
-          >
-            Send a brief. Get a real quote.
+          <h2 className="font-display font-black leading-[1.05] tracking-tight" style={{ fontSize: "clamp(1.6rem, 7vw, 3rem)" }}>
+            Apps, priced by architecture.
           </h2>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/60 sm:text-base">
-            E-commerce stores, corporate sites and custom technical work can't be
-            honestly priced from a menu. Tell us what you're building and you get
-            a written, fixed quote before any work starts — competitive, not
-            cheap, not padded.
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/60 sm:mt-4 sm:text-base">
+            Low-code MVP, full-stack web app, or native mobile — pick the architecture
+            that matches your ambition and budget.
           </p>
 
-          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-3">
-            {BRIEF_SERVICES.map((s) => (
-              <div
-                key={s.name}
-                className="bg-[#0b0b0b] p-7 transition-colors hover:bg-[#111]"
-              >
-                <h3 className="font-display text-lg font-extrabold tracking-tight">
-                  {s.name}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/60">
-                  {s.desc}
-                </p>
+          <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 lg:grid-cols-3">
+            {APP_TIERS.map((t) => (
+              <div key={t.slug} className="flex flex-col rounded-2xl border border-white/10 bg-[#0b0b0b] p-5 sm:p-7">
+                <p className="text-[10px] font-bold uppercase leading-relaxed tracking-[0.22em] text-[#ff6b35] sm:text-[11px]">{t.architecture}</p>
+                <h3 className="font-display mt-2 text-lg font-extrabold tracking-tight sm:text-xl">{t.name}</h3>
+                <p className="mt-1.5 text-sm text-white/55">{t.tagline}</p>
+                <p className="font-display mt-4 break-words text-[1.65rem] font-black leading-tight text-[#ff6b35] sm:text-2xl">{priceRange(t.min, t.max)}</p>
+                <ul className="mt-5 flex-1 space-y-2.5 border-t border-white/10 pt-5">
+                  {t.specs.map((s) => (
+                    <li key={s} className="flex gap-2.5 text-[13px] leading-relaxed text-white/70 sm:text-sm">
+                      <span className="mt-0.5 shrink-0 font-bold text-[#ff6b35]">✓</span><span className="min-w-0">{s}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link to="/contact" className="mt-5 inline-flex min-h-[52px] w-full items-center justify-center rounded-xl border border-white/15 px-6 py-3.5 text-sm font-semibold text-white/85 transition hover:border-[#ff6b35]/60 hover:text-white sm:mt-6">
+                  Scope my app →
+                </Link>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            {[
-              {
-                n: "01",
-                t: "Send your brief",
-                d: "What you're building, who it's for, your deadline. A few paragraphs is enough to start.",
-              },
-              {
-                n: "02",
-                t: "Get a scoped quote",
-                d: "We define the scope together and you receive a written fixed price — no estimates that drift.",
-              },
-              {
-                n: "03",
-                t: "Build at that price",
-                d: "The number you approved is the number you pay. Extra scope is quoted before it's built.",
-              },
-            ].map((s) => (
-              <div
-                key={s.n}
-                className="rounded-2xl border border-white/10 bg-[#0b0b0b] p-6"
-              >
-                <span className="font-display text-2xl font-black text-[#ff6b35]">
-                  {s.n}
-                </span>
-                <h4 className="mt-3 font-semibold">{s.t}</h4>
-                <p className="mt-2 text-sm leading-relaxed text-white/60">
-                  {s.d}
-                </p>
+          <h3 className="font-display mt-10 text-lg font-extrabold sm:mt-12 sm:text-xl">Modular add-ons and upsells</h3>
+          <p className="mt-2 max-w-2xl text-sm text-white/55">For requirements that sit between packages — bolt these on without a rebuild.</p>
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:mt-6 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+            {ADD_ONS_NG.map((a) => (
+              <div key={a.name} className="rounded-2xl border border-white/10 bg-[#0b0b0b] p-5 sm:p-6">
+                <p className="text-sm font-bold leading-snug">{a.name}</p>
+                <p className="font-display mt-2 break-words text-base font-black leading-tight text-[#ff6b35] sm:text-lg">{a.price}</p>
+                <p className="mt-2 text-xs leading-relaxed text-white/55">{a.desc}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-8">
-            <Link
-              to="/contact"
-              className="btn-orange inline-flex items-center justify-center rounded-xl px-7 py-3.5 text-sm font-semibold"
-            >
+          <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
+            <button onClick={() => setQuizOpen(true)} className="btn-orange inline-flex min-h-[52px] w-full items-center justify-center rounded-xl px-7 py-4 text-sm font-semibold sm:w-auto sm:py-3.5">
+              Not sure? Find my tier — 30 secs
+            </button>
+            <Link to="/contact" className="inline-flex min-h-[52px] w-full items-center justify-center rounded-xl border border-white/15 px-7 py-4 text-sm font-semibold text-white/85 transition hover:border-[#ff6b35]/60 hover:text-white sm:w-auto sm:py-3.5">
               Send your brief →
             </Link>
           </div>
@@ -348,18 +191,18 @@ export default function PricingPage() {
       </section>
 
       {/* PAYMENT TERMS */}
-      <section className="px-6 py-16 sm:py-24">
+      <section className="px-5 py-12 sm:px-6 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-white/45">
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-white/45 sm:mb-4 sm:text-xs">
             — How payment works
           </p>
           <h2
             className="font-display font-black leading-[1.05] tracking-tight"
-            style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.6rem)" }}
+            style={{ fontSize: "clamp(1.5rem, 7vw, 2.6rem)" }}
           >
             Fair for you. Sustainable for us.
           </h2>
-          <div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-8 sm:gap-px sm:overflow-hidden sm:rounded-2xl sm:border sm:border-white/10 sm:bg-white/10 sm:grid-cols-3">
             {[
               {
                 t: "50% to start",
@@ -376,12 +219,12 @@ export default function PricingPage() {
             ].map((c) => (
               <div
                 key={c.t}
-                className="bg-[#0b0b0b] p-7 transition-colors hover:bg-[#111]"
+                className="rounded-2xl border border-white/10 bg-[#0b0b0b] p-5 transition-colors hover:bg-[#111] sm:rounded-none sm:border-0 sm:p-7"
               >
-                <h3 className="font-display text-lg font-extrabold text-[#ff6b35]">
+                <h3 className="font-display text-base font-extrabold text-[#ff6b35] sm:text-lg">
                   {c.t}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/60">
+                <p className="mt-2 text-[13px] leading-relaxed text-white/60 sm:mt-3 sm:text-sm">
                   {c.d}
                 </p>
               </div>
@@ -391,29 +234,29 @@ export default function PricingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="border-t border-white/10 px-6 py-16 sm:py-24">
+      <section className="border-t border-white/10 bg-[#0a0a0a] px-5 py-12 sm:px-6 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-3xl">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-white/45">
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-white/45 sm:mb-4 sm:text-xs">
             — Questions
           </p>
           <h2
             className="font-display font-black leading-[1.05] tracking-tight"
-            style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.6rem)" }}
+            style={{ fontSize: "clamp(1.5rem, 7vw, 2.6rem)" }}
           >
             Straight answers.
           </h2>
-          <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
+          <div className="mt-6 divide-y divide-white/10 border-y border-white/10 sm:mt-8">
             {FAQS.map((f, i) => (
               <div key={f.q}>
                 <button
                   type="button"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   aria-expanded={openFaq === i}
-                  className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                  className="flex min-h-[60px] w-full items-center justify-between gap-4 py-4 text-left sm:py-5"
                 >
-                  <span className="font-semibold">{f.q}</span>
+                  <span className="text-[15px] font-semibold leading-snug sm:text-base">{f.q}</span>
                   <span
-                    className={`shrink-0 text-[#ff6b35] transition-transform duration-300 ${
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 text-lg text-[#ff6b35] transition-transform duration-300 ${
                       openFaq === i ? "rotate-45" : ""
                     }`}
                     aria-hidden="true"
@@ -441,29 +284,35 @@ export default function PricingPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="relative overflow-hidden border-t border-white/10 px-6 py-20 text-center">
+      <section className="relative overflow-hidden border-t border-white/10 px-5 py-14 text-center sm:px-6 sm:py-20">
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ff6b35]/10 blur-[130px]" />
         <div className="relative mx-auto max-w-3xl">
           <h2
             className="font-display font-black leading-[1.05] tracking-tight"
-            style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
+            style={{ fontSize: "clamp(1.6rem, 7vw, 3rem)" }}
           >
             Ready to know your number?
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/60 sm:text-base">
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/60 sm:mt-4 sm:text-base">
             Pick a fixed package or send your brief — either way you'll have a
             clear price in writing before anything begins.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <div className="mx-auto mt-6 flex max-w-md flex-col gap-3 sm:mt-8 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
+            <button
+              onClick={() => setQuizOpen(true)}
+              className="inline-flex min-h-[52px] w-full items-center justify-center rounded-xl border border-white/15 px-7 py-4 text-sm font-semibold text-white/85 transition hover:border-[#ff6b35]/60 hover:text-white sm:w-auto sm:py-3.5"
+            >
+              Not sure? Find my tier — 30 secs
+            </button>
             <Link
               to="/contact"
-              className="btn-orange inline-flex items-center justify-center rounded-xl px-7 py-3.5 text-sm font-semibold"
+              className="btn-orange inline-flex min-h-[52px] w-full items-center justify-center rounded-xl px-7 py-4 text-sm font-semibold sm:w-auto sm:py-3.5"
             >
               Start a project
             </Link>
             <Link
               to="/services"
-              className="inline-flex items-center justify-center rounded-xl border border-white/15 px-7 py-3.5 text-sm font-semibold text-white/85 transition hover:border-[#ff6b35]/60 hover:text-white"
+              className="inline-flex min-h-[52px] w-full items-center justify-center rounded-xl border border-white/15 px-7 py-4 text-sm font-semibold text-white/85 transition hover:border-[#ff6b35]/60 hover:text-white sm:w-auto sm:py-3.5"
             >
               View services →
             </Link>
@@ -473,6 +322,8 @@ export default function PricingPage() {
 
 
     </main>
+    <PricingQuizModal open={quizOpen} onClose={() => setQuizOpen(false)} />
+    </>
   );
 }
 

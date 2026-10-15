@@ -23,11 +23,14 @@ type FormData = {
 };
 
 const BUDGET_OPTIONS = [
-  "$100 – $200 USD",
-  "$200 – $300 USD",
-  "$300 – $500 USD",
-  "Above $500 USD (custom scope)",
-  "Not sure yet",
+  "NGN 80k-150k (Landing)",
+  "NGN 180k-400k (Corporate)",
+  "NGN 350k-750k (CMS)",
+  "NGN 500k-1.2M+ (E-commerce)",
+  "NGN 800k-1.8M (MVP app)",
+  "NGN 2M-5M+ (Custom web app)",
+  "NGN 3.5M-8M+ (Mobile app)",
+  "Not sure — advise me",
 ];
 
 const FORM_ENDPOINT = "https://formsubmit.co/ajax/5428e0cf9a61b9e7c1bf1cd93b3ce266";
